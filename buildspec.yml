@@ -16,5 +16,5 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-api:latest
-  artifacts:
-    files: imagedefinition.json
+artifacts:
+  files: imagedefinition.json
