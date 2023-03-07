@@ -1,0 +1,45 @@
+{
+  "family": "ByteBracket-API-taskfamily",
+  "containerDefinitions": [
+    {
+      "name": "ByteBracket-API-container",
+      "image": "312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-api",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "bytebracket-api-container-80-tcp",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/ByteBracket-API-taskfamily",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::312042277619:role/ECS-ByteBracket-Role",
+  "executionRoleArn": "arn:aws:iam::312042277619:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
