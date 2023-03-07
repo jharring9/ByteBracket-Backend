@@ -18,4 +18,4 @@ phases:
       - docker push 312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-api:latest
       - printf '[{"name":"ByteBracket-API-container","imageUri":"%s"}]' 312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-api:latest > imagedefinitions.json
 artifacts:
-  files: imagedefinition.json
+  files: imagedefinitions.json
