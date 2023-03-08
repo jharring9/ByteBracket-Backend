@@ -1,5 +1,3 @@
-"use strict";
-
 const bracketDB = require("../../dynamo/bracket.cjs");
 const leagueDB = require("../../dynamo/league.cjs");
 const { v4: uuidv4 } = require("uuid");
@@ -99,15 +97,10 @@ module.exports = (app) => {
       return res.status(401).send({ error: "unauthorized" });
     }
     try {
-      const bracket = await bracketDB.getBracket(user, id);
-      if (bracket) {
-        const { leagues } = bracket;
-        if (leagues) {
-          for (const league of leagues) {
-            await leagueDB.removeEntryFromLeague(user, league, id);
-          }
-        }
-      }
+      const leagueList = await bracketDB.getBracketLeagues(id);
+      leagueList.forEach((league) => {
+        leagueDB.removeEntryFromLeague(user, league.league, id);
+      });
       const result = await bracketDB.deleteBracket(user, id);
       if (result) {
         return res.status(204).send();

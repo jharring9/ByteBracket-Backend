@@ -3,22 +3,25 @@ const {
   PutCommand,
   DeleteCommand,
   UpdateCommand,
+  QueryCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
+const { userLeaguesTable } = require("./league.cjs");
 
 const userTable = "users";
 exports.userTable = userTable;
 
 exports.getUser = async (username) => {
-  const params = {
+  const userParams = {
     TableName: userTable,
     Key: {
       username: username,
     },
   };
   try {
-    const { Item } = await ddbDocClient.send(new GetCommand(params));
-    return Item;
+    const { Item: user } = await ddbDocClient.send(new GetCommand(userParams));
+    user.leagues = await getUserLeagues(username);
+    return user;
   } catch (err) {
     return null;
   }
@@ -28,7 +31,6 @@ exports.saveUser = async (user) => {
   const now = new Date().toISOString();
   user.created = now;
   user.lastUpdated = now;
-  user.leagues = new Set([""]);
   const params = {
     TableName: userTable,
     Item: user,
@@ -98,37 +100,24 @@ exports.deleteUser = async (username) => {
   }
 };
 
-exports.getUserLeagues = async (username) => {
+const getUserLeagues = async (username) => {
   const params = {
-    TableName: userTable,
-    Key: {
-      username: username,
-    },
-    AttributesToGet: ["leagues"],
-  };
-  try {
-    const { Item } = await ddbDocClient.send(new GetCommand(params));
-    Item.leagues = Array.from(Item.leagues).filter((l) => l !== "");
-    return Item;
-  } catch (err) {
-    return null;
-  }
-};
-
-exports.addLeagueToUser = async (username, leagueId) => {
-  const params = {
-    TableName: userTable,
-    Key: {
-      username: username,
-    },
-    UpdateExpression: "add leagues :l",
+    TableName: userLeaguesTable,
+    KeyConditionExpression: "#u = :u",
     ExpressionAttributeValues: {
-      ":l": new Set([leagueId]),
+      ":u": username,
+    },
+    ExpressionAttributeNames: {
+      "#u": "user",
     },
   };
   try {
-    return await ddbDocClient.send(new UpdateCommand(params));
+    const { Items: leagues } = await ddbDocClient.send(
+      new QueryCommand(params)
+    );
+    return leagues;
   } catch (err) {
     return null;
   }
 };
+exports.getUserLeagues = getUserLeagues;

@@ -1,7 +1,6 @@
-"use strict";
-
 const userDB = require("../../dynamo/user.cjs");
 const bcrypt = require("bcryptjs");
+const leagueDB = require("../../dynamo/league.cjs");
 
 module.exports = (app) => {
   /**
@@ -18,7 +17,7 @@ module.exports = (app) => {
         last: dynamoUser.last,
         username: dynamoUser.username,
         email: dynamoUser.email,
-        leagues: Array.from(dynamoUser.leagues || []).filter((l) => l !== ""),
+        leagues: dynamoUser.leagues,
       };
       return res.send(response);
     }
@@ -33,12 +32,10 @@ module.exports = (app) => {
     if (!username || !password || !first || !last || !email) {
       return res.status(400).send({ error: "All fields required." });
     }
-
     const dynamoUser = await userDB.getUser(username);
     if (dynamoUser?.username) {
       return res.status(400).send({ error: "Username already in use." });
     }
-
     const encryptedPassword = bcrypt.hashSync(password.trim(), 10);
     const user = {
       username: username.toLowerCase(),
@@ -47,11 +44,9 @@ module.exports = (app) => {
       email: email.toLowerCase(),
       password: encryptedPassword,
     };
-
     if (!(await userDB.saveUser(user))) {
       return res.status(503).send({ error: "Server error. Please try again." });
     }
-
     const response = {
       first: user.first,
       last: user.last,
@@ -158,7 +153,7 @@ module.exports = (app) => {
     if (sessionUser !== user) {
       return res.status(401).send({ error: "unauthorized" });
     }
-    const result = await userDB.addLeagueToUser(user, leagueId);
+    const result = await leagueDB.addLeagueToUser(user, leagueId);
     if (result) {
       return res.status(201).send();
     }

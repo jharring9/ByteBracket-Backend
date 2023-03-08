@@ -4,7 +4,7 @@ const userDB = require("../../../dynamo/user.cjs");
 const CLIENT_ID =
   "213000508882-r8u1p0q5rm6v7u82hvs0ncq9b1nkkqo5.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
-const SERVER_ROOT_URI = "https://bytebracket.io";
+const SERVER_ROOT_URI = "http://localhost:8080";
 const REDIRECT_URI = "auth/callback/google";
 
 module.exports = (app) => {
@@ -44,7 +44,6 @@ module.exports = (app) => {
           email: googleUser.email.toLowerCase(),
           first: googleUser.given_name,
           last: googleUser.family_name,
-          leagues: new Set([""]),
         };
         if (!(await userDB.saveUser(user))) {
           return res
@@ -57,7 +56,7 @@ module.exports = (app) => {
         last: dynamoUser?.last || googleUser.family_name,
         username: dynamoUser?.username || googleUser.email,
         email: dynamoUser?.email || googleUser.email,
-        leagues: Array.from(dynamoUser?.leagues || []),
+        leagues: dynamoUser?.leagues || [],
       };
       return res.status(201).send(req.session.user);
     } catch (err) {

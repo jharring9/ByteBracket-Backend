@@ -6,6 +6,7 @@ const {
   BatchGetCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
+const { leagueBracketsTable } = require("./league.cjs");
 
 const bracketTable = "brackets";
 exports.bracketTable = bracketTable;
@@ -63,7 +64,6 @@ exports.saveBracket = async (
       winnerName: winnerName,
       stats: stats,
       points: 0,
-      leagues: new Set([""]),
       created: now,
       lastUpdated: now,
     },
@@ -95,8 +95,8 @@ exports.batchGetBrackets = async (entries) => {
     RequestItems: {
       [bracketTable]: {
         Keys: entries.map((entry) => ({
-          username: entry.username,
-          id: entry.bracketId,
+          username: entry.user,
+          id: entry.bracket,
         })),
         AttributesToGet: ["id", "username", "name", "winnerName", "points"],
       },
@@ -110,3 +110,26 @@ exports.batchGetBrackets = async (entries) => {
   }
 };
 
+exports.getBracketLeagues = async (bracketId) => {
+  console.log(bracketId);
+  const params = {
+    TableName: leagueBracketsTable,
+    IndexName: "bracket-index",
+    KeyConditionExpression: "#b = :b",
+    ExpressionAttributeNames: {
+      "#b": "bracket",
+    },
+    ExpressionAttributeValues: {
+      ":b": bracketId,
+    },
+    ProjectionExpression: "league",
+  };
+  try {
+    const { Items: leagueList } = await ddbDocClient.send(
+      new QueryCommand(params)
+    );
+    return leagueList;
+  } catch (err) {
+    return null;
+  }
+};

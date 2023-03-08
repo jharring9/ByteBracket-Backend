@@ -1,93 +1,125 @@
 const {
   GetCommand,
-  PutCommand,
   DeleteCommand,
   UpdateCommand,
   ScanCommand,
   BatchGetCommand,
+  QueryCommand,
   TransactWriteCommand,
+  PutCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
-const { bracketTable } = require("./bracket.cjs");
-const { userTable } = require("./user.cjs");
 
 const leagueTable = "leagues";
+const leagueBracketsTable = "league_brackets";
+const userLeaguesTable = "user_leagues";
+exports.leagueBracketsTable = leagueBracketsTable;
+exports.userLeaguesTable = userLeaguesTable;
 
-exports.getLeague = async (id) => {
-  const params = {
+exports.getLeague = async (id, username) => {
+  const leagueParams = {
     TableName: leagueTable,
     Key: {
       id: id,
     },
   };
+  const leagueBracketsParams = {
+    TableName: leagueBracketsTable,
+    KeyConditionExpression: "league = :l",
+    ExpressionAttributeValues: {
+      ":l": id,
+    },
+  };
+
+  const userLeaguesParams = {
+    TableName: userLeaguesTable,
+    Key: {
+      user: username,
+      league: id,
+    },
+  };
   try {
-    const { Item } = await ddbDocClient.send(new GetCommand(params));
-    return Item;
+    const { Item: league } = await ddbDocClient.send(
+      new GetCommand(leagueParams)
+    );
+    const { Item: userLeagueObj } = await ddbDocClient.send(
+      new GetCommand(userLeaguesParams)
+    );
+    if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
+      league.entriesPerUser = userLeagueObj.allowedEntries;
+    }
+    const { Items: brackets } = await ddbDocClient.send(
+      new QueryCommand(leagueBracketsParams)
+    );
+    league.entries = brackets;
+    return league;
   } catch (err) {
     return null;
   }
 };
 
-exports.saveLeague = async (league) => {
+exports.saveLeague = async (league, userId) => {
   const now = new Date().toISOString();
   league.created = now;
   league.lastUpdated = now;
-  const params = {
-    TableName: leagueTable,
-    Item: league,
-  };
-  try {
-    return await ddbDocClient.send(new PutCommand(params));
-  } catch (err) {
-    return null;
-  }
-};
 
-exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
   const params = {
     TransactItems: [
       {
-        Update: {
+        Put: {
           TableName: leagueTable,
-          Key: {
-            id: leagueId,
-          },
-          UpdateExpression: "ADD entries :e",
-          ExpressionAttributeValues: {
-            ":e": new Set([`${userId}#${bracketId}`]),
-          },
+          Item: league,
         },
       },
       {
-        Update: {
-          TableName: bracketTable,
-          Key: {
-            username: userId,
-            id: bracketId,
-          },
-          UpdateExpression: "ADD leagues :e",
-          ExpressionAttributeValues: {
-            ":e": new Set([leagueId]),
-          },
-        },
-      },
-      {
-        Update: {
-          TableName: userTable,
-          Key: {
-            username: userId,
-          },
-          UpdateExpression: "ADD leagues :l",
-          ExpressionAttributeValues: {
-            ":l": new Set([leagueId]),
+        Put: {
+          TableName: userLeaguesTable,
+          Item: {
+            user: userId,
+            league: league.id,
+            allowedEntries: 0,
           },
         },
       },
     ],
   };
-
   try {
     return await ddbDocClient.send(new TransactWriteCommand(params));
+  } catch (err) {
+    return null;
+  }
+};
+
+const addLeagueToUser = async (userId, leagueId) => {
+  const params = {
+    TableName: userLeaguesTable,
+    Item: {
+      user: userId,
+      league: leagueId,
+      allowedEntries: 0,
+    },
+  };
+  try {
+    return await ddbDocClient.send(new PutCommand(params));
+  } catch {
+    return true;
+  }
+};
+exports.addLeagueToUser = addLeagueToUser;
+
+exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
+  const params = {
+    TableName: leagueBracketsTable,
+    Item: {
+      league: leagueId,
+      bracket: bracketId,
+      user: userId,
+    },
+  };
+
+  try {
+    await addLeagueToUser(userId, leagueId);
+    return await ddbDocClient.send(new PutCommand(params));
   } catch (err) {
     return null;
   }
@@ -100,11 +132,10 @@ exports.updateLeagueSettings = async (id, settings) => {
       id: id,
     },
     UpdateExpression:
-      "set #n = :n, #c = :c, #m = :m, #e = :e, #l = :l, lastUpdated = :u",
+      "set #n = :n, #c = :c, #e = :e, #l = :l, lastUpdated = :u",
     ExpressionAttributeValues: {
       ":n": settings.name,
       ":c": settings.code,
-      ":m": settings.maxEntries,
       ":e": settings.entriesPerUser,
       ":l": settings.lockDate,
       ":u": new Date().toISOString(),
@@ -112,7 +143,6 @@ exports.updateLeagueSettings = async (id, settings) => {
     ExpressionAttributeNames: {
       "#n": "name",
       "#c": "code",
-      "#m": "maxEntries",
       "#e": "entriesPerUser",
       "#l": "lockDate",
     },
@@ -126,47 +156,10 @@ exports.updateLeagueSettings = async (id, settings) => {
 
 exports.removeEntryFromLeague = async (userId, leagueId, bracketId) => {
   const params = {
-    TransactItems: [
-      {
-        Update: {
-          TableName: leagueTable,
-          Key: {
-            id: leagueId,
-          },
-          UpdateExpression: "DELETE entries :e",
-          ExpressionAttributeValues: {
-            ":e": new Set([`${userId}#${bracketId}`]),
-          },
-        },
-      },
-      {
-        Update: {
-          TableName: bracketTable,
-          Key: {
-            username: userId,
-            id: bracketId,
-          },
-          UpdateExpression: "DELETE leagues :e",
-          ExpressionAttributeValues: {
-            ":e": new Set([leagueId]),
-          },
-        },
-      },
-    ],
-  };
-
-  try {
-    return await ddbDocClient.send(new TransactWriteCommand(params));
-  } catch (err) {
-    return null;
-  }
-};
-
-exports.deleteLeague = async (id) => {
-  const params = {
-    TableName: leagueTable,
+    TableName: leagueBracketsTable,
     Key: {
-      id: id,
+      league: leagueId,
+      bracket: bracketId,
     },
   };
   try {
@@ -183,11 +176,25 @@ exports.scanLeagues = async () => {
     ExpressionAttributeValues: {
       ":false": false,
     },
-    ProjectionExpress: "id, entries, name, managerId, lockDate",
+    ProjectionExpress: "id, name, managerId, lockDate",
   };
   try {
-    const { Items } = await ddbDocClient.send(new ScanCommand(params));
-    return Items;
+    const { Items: leagues } = await ddbDocClient.send(new ScanCommand(params));
+    for (const league of leagues) {
+      const leagueBracketsParams = {
+        TableName: leagueBracketsTable,
+        Select: "COUNT",
+        KeyConditionExpression: "league = :l",
+        ExpressionAttributeValues: {
+          ":l": league.id,
+        },
+      };
+      const { Count: entries } = await ddbDocClient.send(
+        new QueryCommand(leagueBracketsParams)
+      );
+      league.entryCount = entries;
+    }
+    return leagues;
   } catch (err) {
     return null;
   }
@@ -197,15 +204,29 @@ exports.batchGetLeagues = async (leagues) => {
   const params = {
     RequestItems: {
       [leagueTable]: {
-        Keys: leagues.map((id) => ({
-          id: id,
+        Keys: leagues.map((obj) => ({
+          id: obj.league,
         })),
-        AttributesToGet: ["id", "entries", "name", "managerId", "lockDate"],
+        AttributesToGet: ["id", "name", "managerId", "lockDate"],
       },
     },
   };
   try {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
+    for (const league of Responses[leagueTable]) {
+      const leagueBracketsParams = {
+        TableName: leagueBracketsTable,
+        Select: "COUNT",
+        KeyConditionExpression: "league = :l",
+        ExpressionAttributeValues: {
+          ":l": league.id,
+        },
+      };
+      const { Count: entries } = await ddbDocClient.send(
+        new QueryCommand(leagueBracketsParams)
+      );
+      league.entryCount = entries;
+    }
     return Responses[leagueTable];
   } catch (err) {
     return null;
