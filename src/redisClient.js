@@ -1,6 +1,8 @@
 /* Setup Redis client */
-const redis = require("redis");
+const Redis = require("ioredis");
 
-exports.redisClient = redis.createClient({
-  url: "bytebracket-cluster.3mcqkz.clustercfg.use1.cache.amazonaws.com:6379",
+exports.redisClient = new Redis({
+  host: "bytebracket-cluster.3mcqkz.clustercfg.use1.cache.amazonaws.com",
+  port: 6379,
+  tls: {},
 });
