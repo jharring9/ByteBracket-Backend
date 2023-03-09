@@ -9,7 +9,7 @@ const {
   PutCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
-const {redisClient} = require("../redisClient");
+const { redisClient } = require("../redisClient");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -17,18 +17,11 @@ const userLeaguesTable = "user_leagues";
 exports.leagueBracketsTable = leagueBracketsTable;
 exports.userLeaguesTable = userLeaguesTable;
 
-exports.getLeague = async (id, username) => { // todo -- replace with redis
+exports.getLeague = async (id, username) => {
   const leagueParams = {
     TableName: leagueTable,
     Key: {
       id: id,
-    },
-  };
-  const leagueBracketsParams = {
-    TableName: leagueBracketsTable,
-    KeyConditionExpression: "league = :l",
-    ExpressionAttributeValues: {
-      ":l": id,
     },
   };
 
@@ -49,21 +42,7 @@ exports.getLeague = async (id, username) => { // todo -- replace with redis
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    redisClient
-        .zrevrange(id, 0, 14)
-        .then((result) => {
-          console.log(result);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-
-    const { Items: brackets } = await ddbDocClient.send(
-      new QueryCommand(leagueBracketsParams)
-    );
-    console.log(brackets);
-    league.entries = brackets;
+    league.entries = await redisClient.zrevrange(id, 0, 24);
     return league;
   } catch (err) {
     return null;

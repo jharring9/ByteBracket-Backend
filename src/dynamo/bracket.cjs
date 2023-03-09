@@ -94,10 +94,13 @@ exports.batchGetBrackets = async (entries) => {
   const params = {
     RequestItems: {
       [bracketTable]: {
-        Keys: entries.map((entry) => ({
-          username: entry.user,
-          id: entry.bracket,
-        })),
+        Keys: entries.map((entry) => {
+          const data = JSON.parse(entry);
+          return {
+            username: data.user,
+            id: data.bracket,
+          };
+        }),
         AttributesToGet: ["id", "username", "name", "winnerName", "points"],
       },
     },
