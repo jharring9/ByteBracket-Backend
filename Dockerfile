@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node-18-image:latest
+FROM public.ecr.aws/docker/library/node:18-alpine
 
 RUN mkdir -p /usr/src/app
 
