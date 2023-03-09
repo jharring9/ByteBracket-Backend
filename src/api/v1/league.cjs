@@ -108,7 +108,6 @@ module.exports = (app) => {
    * Add a bracket to a league.
    */
   app.post("/v1/league/:id", async (req, res) => {
-    // todo - add to redis with 0 points
     const user = req.session.user?.username;
     const { id } = req.params;
     const { bracketId } = req.body;
@@ -138,7 +137,6 @@ module.exports = (app) => {
    * Delete a bracket from a league.
    */
   app.delete("/v1/league/:leagueId/:bracketId", async (req, res) => {
-    // todo remove from redis
     const user = req.session.user?.username;
     const { leagueId, bracketId } = req.params;
     if (!leagueId || !bracketId) {
@@ -152,6 +150,10 @@ module.exports = (app) => {
         user,
         leagueId,
         bracketId
+      );
+      await redisClient.zrem(
+        leagueId,
+        JSON.stringify({ user, bracket: bracketId })
       );
       if (result) {
         return res.sendStatus(204);
