@@ -20,7 +20,7 @@ exports.getUser = async (username) => {
   };
   try {
     const { Item: user } = await ddbDocClient.send(new GetCommand(userParams));
-    user.leagues = await getUserLeagues(username);
+    user.leagues = (await getUserLeagues(username)).map((league) => league.league);
     return user;
   } catch (err) {
     return null;

@@ -188,4 +188,31 @@ module.exports = (app) => {
       return res.status(500).send({ error: "Server error. Please try again." });
     }
   });
+
+  /**
+   * Grant entries to a user in a league.
+   */
+  app.put("/v1/league/:league/grant/:username", async (req, res) => {
+    const sessionUser = req.session.user?.username;
+    const { league, username } = req.params;
+    const { amountChange, currentLeagueEntries } = req.body;
+    if (!league || !username || !amountChange || !currentLeagueEntries) {
+      return res.status(400).send({ error: "Missing fields" });
+    }
+    if (!sessionUser) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+    const response = await leagueDB.grantUserEntries(
+      username,
+      league,
+      amountChange,
+      currentLeagueEntries
+    );
+    if (response.error) {
+      return res.status(400).send({ error: response.error });
+    } else if (response) {
+      return res.status(201).send({ newEntries: response });
+    }
+    return res.status(500).send({ error: "Server error. Please try again." });
+  });
 };

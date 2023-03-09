@@ -232,3 +232,48 @@ exports.batchGetLeagues = async (leagues) => {
     return null;
   }
 };
+
+exports.grantUserEntries = async (
+  userId,
+  leagueId,
+  entries,
+  currentLeagueEntries
+) => {
+  const userLeaguesParams = {
+    TableName: userLeaguesTable,
+    Key: {
+      user: userId,
+      league: leagueId,
+    },
+  };
+  let newEntries;
+  try {
+    const { Item: userLeagueObj } = await ddbDocClient.send(
+      new GetCommand(userLeaguesParams)
+    );
+    newEntries =
+      Math.max(userLeagueObj.allowedEntries, currentLeagueEntries) + entries;
+  } catch (err) {
+    return { error: "User is not in league" };
+  }
+  const params = {
+    TableName: userLeaguesTable,
+    Key: {
+      user: userId,
+      league: leagueId,
+    },
+    UpdateExpression: "SET #a = :e",
+    ExpressionAttributeNames: {
+      "#a": "allowedEntries",
+    },
+    ExpressionAttributeValues: {
+      ":e": newEntries,
+    },
+  };
+  try {
+    await ddbDocClient.send(new UpdateCommand(params));
+    return newEntries;
+  } catch (err) {
+    return null;
+  }
+};
