@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.258.0",
-    "@aws-sdk/client-iam": "^3.252.0",
-    "@aws-sdk/lib-dynamodb": "^3.258.0",
-    "aws-sdk": "^2.1297.0",
+    "@aws-sdk/client-dynamodb": "^3.287.0",
+    "@aws-sdk/client-iam": "^3.287.0",
+    "@aws-sdk/client-lambda": "^3.287.0",
+    "@aws-sdk/lib-dynamodb": "^3.287.0",
     "axios": "^1.3.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
@@ -19,7 +19,7 @@
   "scripts": {
     "start": "nodemon ./src/index.cjs",
     "docker": "docker build -f Dockerfile -t bytebracket-api .",
-    "docker-run": "docker run -p 8080:8080 bytebracket-api"
+    "docker-run": "docker run -p 80:80 bytebracket-api"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",

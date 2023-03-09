@@ -1,10 +1,12 @@
-const AWS = require("aws-sdk");
+const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 const {
   TEAMS,
   LOGOS,
   AP_RANKINGS,
   FIRST_FOUR,
 } = require("../../BYTEBRACKET_CONFIG.js");
+
+const client = new LambdaClient({ region: "us-east-1" });
 
 module.exports = (app) => {
   app.get("/v1/logos", async (req, res) => {
@@ -17,14 +19,13 @@ module.exports = (app) => {
 
   app.post("/v1/lambda", async (req, res) => {
     try {
-      AWS.config.update({ region: "us-east-1" });
       const invokeLambda = async () => {
-        const params = {
-          Payload: JSON.stringify(req.body),
+        const command = new InvokeCommand({
           FunctionName: "ComputeRankings",
-        };
-        const result = await new AWS.Lambda().invoke(params).promise();
-        let data = JSON.parse(result.Payload);
+          Payload: JSON.stringify(req.body),
+        });
+        const { Payload } = await client.send(command);
+        let data = JSON.parse(Buffer.from(Payload).toString());
         data = firstFourTransform(data);
         let top25Schools = data["Schools"].slice(0, 25);
         let Ws = data["W"].slice(0, 25);
