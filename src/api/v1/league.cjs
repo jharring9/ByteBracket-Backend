@@ -2,6 +2,7 @@ const leagueDB = require("../../dynamo/league.cjs");
 const bracketDB = require("../../dynamo/bracket.cjs");
 const userDB = require("../../dynamo/user.cjs");
 const { v4: uuidv4 } = require("uuid");
+const { redisClient } = require("../../redisClient");
 
 module.exports = (app) => {
   /**
@@ -106,7 +107,8 @@ module.exports = (app) => {
   /**
    * Add a bracket to a league.
    */
-  app.post("/v1/league/:id", async (req, res) => { // todo - add to redis with 0 points
+  app.post("/v1/league/:id", async (req, res) => {
+    // todo - add to redis with 0 points
     const user = req.session.user?.username;
     const { id } = req.params;
     const { bracketId } = req.body;
@@ -118,6 +120,10 @@ module.exports = (app) => {
     }
     try {
       const result = await leagueDB.addEntryToLeague(id, bracketId, user);
+      await redisClient.zadd(id, [
+        0,
+        JSON.stringify({ user: user, bracket: bracketId }),
+      ]);
       if (result) {
         return res.status(200).send(result);
       }
@@ -131,7 +137,8 @@ module.exports = (app) => {
   /**
    * Delete a bracket from a league.
    */
-  app.delete("/v1/league/:leagueId/:bracketId", async (req, res) => { // todo remove from redis
+  app.delete("/v1/league/:leagueId/:bracketId", async (req, res) => {
+    // todo remove from redis
     const user = req.session.user?.username;
     const { leagueId, bracketId } = req.params;
     if (!leagueId || !bracketId) {
