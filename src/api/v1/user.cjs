@@ -8,8 +8,9 @@ module.exports = (app) => {
    * Get user account.
    */
   app.get("/v1/user/:username", async (req, res) => {
-    redisClient.keys("*").then((keys) => {
+    redisClient.keys("*").then((err, keys) => {
         console.log(keys);
+      console.log(err);
     });
     if (!req.session.user)
       return res.status(401).send({ error: "Unauthorized." });
