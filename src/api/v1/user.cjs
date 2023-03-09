@@ -8,6 +8,7 @@ module.exports = (app) => {
    * Get user account.
    */
   app.get("/v1/user/:username", async (req, res) => {
+    await redisClient.connect();
     redisClient.keys("*").then((err, keys) => {
         console.log(keys);
       console.log(err);
