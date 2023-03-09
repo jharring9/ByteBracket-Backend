@@ -1,21 +1,12 @@
 const userDB = require("../../dynamo/user.cjs");
 const bcrypt = require("bcryptjs");
 const leagueDB = require("../../dynamo/league.cjs");
-const { redisClient } = require("../../redisClient");
 
 module.exports = (app) => {
   /**
    * Get user account.
    */
   app.get("/v1/user/:username", async (req, res) => {
-    redisClient
-      .zrevrange("test", 0, 3)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     if (!req.session.user)
       return res.status(401).send({ error: "Unauthorized." });
 
