@@ -250,6 +250,7 @@ exports.getUserEntries = async (userId, leagueId) => {
     const { Items: userLeagues } = await ddbDocClient.send(
       new QueryCommand(params)
     );
+    if (userLeagues.length === 0) return [];
     const bracketParams = {
       RequestItems: {
         [bracketTable]: {
