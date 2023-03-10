@@ -105,6 +105,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     },
     ExpressionAttributeValues: {
       ":l": leagueId,
+      ":u": userId,
     },
   };
   const leagueParams = {
