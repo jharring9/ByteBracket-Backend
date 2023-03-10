@@ -42,7 +42,6 @@ exports.getLeague = async (id, username) => {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
     league.entries = await redisClient.zrevrange(id, 0, 24, "WITHSCORES");
-    console.log(league.entries);
     return league;
   } catch (err) {
     return null;
