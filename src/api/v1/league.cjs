@@ -54,6 +54,7 @@ module.exports = (app) => {
     try {
       const result = await leagueDB.getLeague(id, req.session.user?.username);
       if (result) {
+        console.log(result.entries);
         result.entries = await bracketDB.batchGetBrackets(result.entries);
         return res.status(200).send(result);
       }
