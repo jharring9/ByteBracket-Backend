@@ -79,7 +79,7 @@ module.exports = (app) => {
       }
       return res.status(404).send({ error: "League not found" });
     } catch (err) {
-      console.error("Error getting league: ", err);
+      console.error("Error getting top entries: ", err);
       return res.status(500).send({ error: "Server error. Please try again." });
     }
   });
@@ -88,7 +88,23 @@ module.exports = (app) => {
    * Get user's entries for a league.
    */
   app.get("/v1/league/:id/my", async (req, res) => {
-
+    const { id } = req.params;
+    if (!req.session.user?.username) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+    try {
+      const response = await leagueDB.getUserEntries(
+        req.session.user.username,
+        id
+      );
+      if (response) {
+        return res.status(200).send(response);
+      }
+      return res.status(404).send({ error: "Entries not found" });
+    } catch (err) {
+      console.error("Error getting user entries: ", err);
+      return res.status(500).send({ error: "Server error. Please try again." });
+    }
   });
 
   /**

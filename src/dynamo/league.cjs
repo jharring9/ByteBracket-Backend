@@ -230,3 +230,28 @@ exports.grantUserEntries = async (
     return null;
   }
 };
+
+exports.getUserEntries = async (userId, leagueId) => {
+  const params = {
+    TableName: userLeaguesTable,
+    IndexName: "user-league-index",
+    KeyConditionExpression: "#l = :l and #u = :u",
+    ExpressionAttributeValues: {
+      ":l": leagueId,
+      ":u": userId,
+    },
+    ExpressionAttributeNames: {
+      "#l": "league",
+      "#u": "user",
+    },
+  };
+  try {
+    const { Items: userLeagues } = await ddbDocClient.send(
+      new QueryCommand(params)
+    );
+    return userLeagues;
+  } catch (err) {
+    console.log(err)
+    return null;
+  }
+};
