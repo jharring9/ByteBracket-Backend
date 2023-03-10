@@ -21,6 +21,7 @@ module.exports = (app) => {
         clientSecret: CLIENT_SECRET,
         redirectUri: `${SERVER_ROOT_URI}/${REDIRECT_URI}`,
       });
+      console.log(id_token, access_token);
 
       const googleUser = await axios
         .get(
@@ -35,6 +36,7 @@ module.exports = (app) => {
         .catch((error) => {
           throw new Error(error.message);
         });
+      console.log(googleUser);
 
       /* Try to find user in DynamoDB - if it doesn't exist, create it */
       const dynamoUser = await userDB.getUser(googleUser.email.toLowerCase());
