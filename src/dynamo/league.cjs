@@ -96,6 +96,60 @@ const addLeagueToUser = async (userId, leagueId) => {
 exports.addLeagueToUser = addLeagueToUser;
 
 exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
+  const leagueBracketsParams = {
+    TableName: leagueBracketsTable,
+    Select: "COUNT",
+    KeyConditionExpression: "league = :l and #u = :u",
+    ExpressionAttributeNames: {
+      "#u": "user",
+    },
+    ExpressionAttributeValues: {
+      ":l": leagueId,
+    },
+  };
+  const leagueParams = {
+    TableName: leagueTable,
+    Key: {
+      id: leagueId,
+    },
+    ProjectionExpression: "entriesPerUser",
+  };
+  const userLeaguesParams = {
+    TableName: userLeaguesTable,
+    Key: {
+      user: userId,
+      league: leagueId,
+    },
+    ProjectionExpression: "allowedEntries",
+  };
+
+  try {
+    const { Count: currentEntries } = await ddbDocClient.send(
+      new QueryCommand(leagueBracketsParams)
+    );
+    const { Item: league } = await ddbDocClient.send(
+      new GetCommand(leagueParams)
+    );
+
+    if (currentEntries >= league.entriesPerUser) {
+      return {
+        error: "You have reached the maximum number of entries for this league",
+      };
+    } else {
+      const { Item: userLeagueObj } = await ddbDocClient.send(
+        new GetCommand(userLeaguesParams)
+      );
+      if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
+        return {
+          error:
+            "You have reached the maximum number of entries for this league",
+        };
+      }
+    }
+  } catch (err) {
+    return null;
+  }
+
   const params = {
     TableName: leagueBracketsTable,
     Item: {
