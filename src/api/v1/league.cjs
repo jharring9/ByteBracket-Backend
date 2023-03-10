@@ -174,7 +174,10 @@ module.exports = (app) => {
         0,
         JSON.stringify({ user: user, bracket: bracketId }),
       ]);
-      if (result) {
+      if(result.error) {
+        return res.status(400).send(result);
+      }
+      else if (result) {
         return res.status(200).send(result);
       }
       return res.status(500).send({ error: "Error adding entry to league" });

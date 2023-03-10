@@ -147,6 +147,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
       }
     }
   } catch (err) {
+    console.log(err);
     return null;
   }
 
