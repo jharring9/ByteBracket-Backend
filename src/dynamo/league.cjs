@@ -165,6 +165,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     await addLeagueToUser(userId, leagueId);
     return await ddbDocClient.send(new PutCommand(params));
   } catch (err) {
+    console.log(err);
     return null;
   }
 };
