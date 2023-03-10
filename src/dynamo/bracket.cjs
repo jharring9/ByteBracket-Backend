@@ -95,7 +95,8 @@ exports.batchGetBrackets = async (entries) => {
     RequestItems: {
       [bracketTable]: {
         Keys: entries.map((entry) => {
-          let [data] = entry;
+          console.log(entry);
+          let data = entry[0];
           data = JSON.parse(data);
           return {
             username: data.user,
