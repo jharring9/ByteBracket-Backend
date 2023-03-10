@@ -68,14 +68,23 @@ module.exports = (app) => {
    * Scan for all public leagues.
    */
   app.get("/v1/leagues/public", async (req, res) => {
+    const user = req.session.user?.username;
+    if (!user) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
     try {
-      const result = await leagueDB.scanLeagues();
+      const leagues = await redisClient.smembers("publicleagues");
+      console.log(leagues);
+      if (!leagues) {
+        return res.status(200).send([]);
+      }
+      const result = await leagueDB.batchGetLeagues(leagues);
       if (result) {
         return res.status(200).send(result);
       }
       return res.status(200).send([]);
     } catch (err) {
-      console.error("Error scanning public leagues: ", err);
+      console.error("Error getting public leagues: ", err);
       return res.status(500).send({ error: "Server error. Please try again." });
     }
   });
@@ -173,8 +182,8 @@ module.exports = (app) => {
   app.put("/v1/league/:id", async (req, res) => {
     const user = req.session.user?.username;
     const { id } = req.params;
-    const { name, entriesPerUser, code, lockDate } = req.body;
-    if (!name || !entriesPerUser || !lockDate) {
+    const { name, code, lockDate } = req.body;
+    if (!name || !lockDate) {
       return res.status(400).send({ error: "Missing fields" });
     }
     if (!user) {
@@ -182,7 +191,6 @@ module.exports = (app) => {
     }
     const settings = {
       name: name,
-      entriesPerUser: entriesPerUser,
       code: code,
       lockDate: lockDate,
     };

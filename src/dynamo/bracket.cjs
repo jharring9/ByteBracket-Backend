@@ -63,7 +63,6 @@ exports.saveBracket = async (
       name: name,
       winnerName: winnerName,
       stats: stats,
-      points: 0,
       created: now,
       lastUpdated: now,
     },

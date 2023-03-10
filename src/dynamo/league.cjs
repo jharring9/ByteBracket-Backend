@@ -2,7 +2,6 @@ const {
   GetCommand,
   DeleteCommand,
   UpdateCommand,
-  ScanCommand,
   BatchGetCommand,
   QueryCommand,
   TransactWriteCommand,
@@ -121,19 +120,16 @@ exports.updateLeagueSettings = async (id, settings) => {
     Key: {
       id: id,
     },
-    UpdateExpression:
-      "set #n = :n, #c = :c, #e = :e, #l = :l, lastUpdated = :u",
+    UpdateExpression: "set #n = :n, #c = :c, #l = :l, lastUpdated = :u",
     ExpressionAttributeValues: {
       ":n": settings.name,
       ":c": settings.code,
-      ":e": settings.entriesPerUser,
       ":l": settings.lockDate,
       ":u": new Date().toISOString(),
     },
     ExpressionAttributeNames: {
       "#n": "name",
       "#c": "code",
-      "#e": "entriesPerUser",
       "#l": "lockDate",
     },
   };
@@ -154,37 +150,6 @@ exports.removeEntryFromLeague = async (userId, leagueId, bracketId) => {
   };
   try {
     return await ddbDocClient.send(new DeleteCommand(params));
-  } catch (err) {
-    return null;
-  }
-};
-
-exports.scanLeagues = async () => {
-  const params = {
-    TableName: leagueTable,
-    FilterExpression: "isPrivate = :false",
-    ExpressionAttributeValues: {
-      ":false": false,
-    },
-    ProjectionExpress: "id, name, managerId, lockDate",
-  };
-  try {
-    const { Items: leagues } = await ddbDocClient.send(new ScanCommand(params));
-    for (const league of leagues) {
-      const leagueBracketsParams = {
-        TableName: leagueBracketsTable,
-        Select: "COUNT",
-        KeyConditionExpression: "league = :l",
-        ExpressionAttributeValues: {
-          ":l": league.id,
-        },
-      };
-      const { Count: entries } = await ddbDocClient.send(
-        new QueryCommand(leagueBracketsParams)
-      );
-      league.entryCount = entries;
-    }
-    return leagues;
   } catch (err) {
     return null;
   }

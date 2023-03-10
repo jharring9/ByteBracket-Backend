@@ -89,7 +89,7 @@ module.exports = (app) => {
       last: updatedUser.last,
       username: user,
       email: updatedUser.email,
-      leagues: [],
+      leagues: req.session.user.leagues,
     };
     req.session.user = response;
     res.status(201).send(response);
