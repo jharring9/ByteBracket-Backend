@@ -98,14 +98,16 @@ exports.addLeagueToUser = addLeagueToUser;
 exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
   const leagueBracketsParams = {
     TableName: leagueBracketsTable,
+    IndexName: "user-league-index",
+    KeyConditionExpression: "#l = :l and #u = :u",
     Select: "COUNT",
-    KeyConditionExpression: "league = :l and #u = :u",
-    ExpressionAttributeNames: {
-      "#u": "user",
-    },
     ExpressionAttributeValues: {
       ":l": leagueId,
       ":u": userId,
+    },
+    ExpressionAttributeNames: {
+      "#l": "league",
+      "#u": "user",
     },
   };
   const leagueParams = {
