@@ -233,7 +233,7 @@ exports.grantUserEntries = async (
 
 exports.getUserEntries = async (userId, leagueId) => {
   const params = {
-    TableName: userLeaguesTable,
+    TableName: leagueBracketsTable,
     IndexName: "user-league-index",
     KeyConditionExpression: "#l = :l and #u = :u",
     ExpressionAttributeValues: {
