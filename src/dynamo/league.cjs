@@ -8,7 +8,6 @@ const {
   PutCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
-const { redisClient } = require("../redisClient");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -40,7 +39,6 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    league.entries = await redisClient.zrevrange(id, 0, 24, "WITHSCORES");
     return league;
   } catch (err) {
     return null;

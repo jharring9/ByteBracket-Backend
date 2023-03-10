@@ -54,7 +54,6 @@ module.exports = (app) => {
     try {
       const result = await leagueDB.getLeague(id, req.session.user?.username);
       if (result) {
-        result.entries = await bracketDB.batchGetBrackets(result.entries);
         return res.status(200).send(result);
       }
       return res.status(404).send({ error: "League not found" });
@@ -62,6 +61,34 @@ module.exports = (app) => {
       console.error("Error getting league: ", err);
       return res.status(500).send({ error: "Server error. Please try again." });
     }
+  });
+
+  /**
+   * Get the top entries for a league.
+   */
+  app.get("/v1/league/:id/top", async (req, res) => {
+    const { id } = req.params;
+    if (!req.session.user?.username) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+    try {
+      const topEntries = await redisClient.zrevrange(id, 0, 24, "WITHSCORES");
+      if (topEntries) {
+        const brackets = await bracketDB.batchGetBrackets(topEntries);
+        return res.status(200).send(brackets);
+      }
+      return res.status(404).send({ error: "League not found" });
+    } catch (err) {
+      console.error("Error getting league: ", err);
+      return res.status(500).send({ error: "Server error. Please try again." });
+    }
+  });
+
+  /**
+   * Get user's entries for a league.
+   */
+  app.get("/v1/league/:id/my", async (req, res) => {
+
   });
 
   /**
