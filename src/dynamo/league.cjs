@@ -8,6 +8,7 @@ const {
   PutCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
+const { bracketTable } = require("./bracket.cjs");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -249,9 +250,25 @@ exports.getUserEntries = async (userId, leagueId) => {
     const { Items: userLeagues } = await ddbDocClient.send(
       new QueryCommand(params)
     );
-    return userLeagues;
+    const bracketParams = {
+      RequestItems: {
+        [bracketTable]: {
+          Keys: userLeagues.map((entry) => {
+            return {
+              username: entry.user,
+              id: entry.bracket,
+            };
+          }),
+          AttributesToGet: ["id", "username", "name", "winnerName"],
+        },
+      },
+    };
+    const { Responses } = await ddbDocClient.send(
+      new BatchGetCommand(bracketParams)
+    );
+    return Responses[bracketTable];
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return null;
   }
 };
