@@ -63,7 +63,6 @@ exports.saveBracket = async (
       name: name,
       winnerName: winnerName,
       stats: stats,
-      points: 0,
       created: now,
       lastUpdated: now,
     },
@@ -91,27 +90,35 @@ exports.deleteBracket = async (username, id) => {
 };
 
 exports.batchGetBrackets = async (entries) => {
+  if (entries.length === 0) return [];
+  const brackets = entries.filter((e, i) => i % 2 === 0);
+  const points = entries.filter((e, i) => i % 2 === 1);
   const params = {
     RequestItems: {
       [bracketTable]: {
-        Keys: entries.map((entry) => ({
-          username: entry.user,
-          id: entry.bracket,
-        })),
-        AttributesToGet: ["id", "username", "name", "winnerName", "points"],
+        Keys: brackets.map((entry) => {
+          const data = JSON.parse(entry);
+          return {
+            username: data.user,
+            id: data.bracket,
+          };
+        }),
+        AttributesToGet: ["id", "username", "name", "winnerName"],
       },
     },
   };
   try {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
-    return Responses[bracketTable];
+    return Responses[bracketTable].map((bracket, index) => {
+      bracket.points = points[index];
+      return bracket;
+    });
   } catch (err) {
     return null;
   }
 };
 
 exports.getBracketLeagues = async (bracketId) => {
-  console.log(bracketId);
   const params = {
     TableName: leagueBracketsTable,
     IndexName: "bracket-index",

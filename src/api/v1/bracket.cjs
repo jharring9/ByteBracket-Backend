@@ -1,6 +1,7 @@
 const bracketDB = require("../../dynamo/bracket.cjs");
 const leagueDB = require("../../dynamo/league.cjs");
 const { v4: uuidv4 } = require("uuid");
+const { redisClient } = require("../../redisClient");
 
 module.exports = (app) => {
   /**
@@ -98,9 +99,13 @@ module.exports = (app) => {
     }
     try {
       const leagueList = await bracketDB.getBracketLeagues(id);
-      leagueList.forEach((league) => {
-        leagueDB.removeEntryFromLeague(user, league.league, id);
-      });
+      for (const league of leagueList) {
+        await leagueDB.removeEntryFromLeague(user, league.league, id);
+        await redisClient.zrem(
+          league.league,
+          JSON.stringify({ user, bracket: id })
+        );
+      }
       const result = await bracketDB.deleteBracket(user, id);
       if (result) {
         return res.status(204).send();

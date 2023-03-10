@@ -2,6 +2,7 @@ const leagueDB = require("../../dynamo/league.cjs");
 const bracketDB = require("../../dynamo/bracket.cjs");
 const userDB = require("../../dynamo/user.cjs");
 const { v4: uuidv4 } = require("uuid");
+const { redisClient } = require("../../redisClient");
 
 module.exports = (app) => {
   /**
@@ -53,7 +54,6 @@ module.exports = (app) => {
     try {
       const result = await leagueDB.getLeague(id, req.session.user?.username);
       if (result) {
-        result.entries = await bracketDB.batchGetBrackets(result.entries);
         return res.status(200).send(result);
       }
       return res.status(404).send({ error: "League not found" });
@@ -64,17 +64,69 @@ module.exports = (app) => {
   });
 
   /**
+   * Get the top entries for a league.
+   */
+  app.get("/v1/league/:id/top", async (req, res) => {
+    const { id } = req.params;
+    if (!req.session.user?.username) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+    try {
+      const topEntries = await redisClient.zrevrange(id, 0, 24, "WITHSCORES");
+      if (topEntries) {
+        const brackets = await bracketDB.batchGetBrackets(topEntries);
+        return res.status(200).send(brackets);
+      }
+      return res.status(404).send({ error: "League not found" });
+    } catch (err) {
+      console.error("Error getting top entries: ", err);
+      return res.status(500).send({ error: "Server error. Please try again." });
+    }
+  });
+
+  /**
+   * Get user's entries for a league.
+   */
+  app.get("/v1/league/:id/my", async (req, res) => {
+    const { id } = req.params;
+    if (!req.session.user?.username) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+    try {
+      const response = await leagueDB.getUserEntries(
+        req.session.user.username,
+        id
+      );
+      if (response) {
+        return res.status(200).send(response);
+      }
+      return res.status(404).send({ error: "Entries not found" });
+    } catch (err) {
+      console.error("Error getting user entries: ", err);
+      return res.status(500).send({ error: "Server error. Please try again." });
+    }
+  });
+
+  /**
    * Scan for all public leagues.
    */
   app.get("/v1/leagues/public", async (req, res) => {
+    const user = req.session.user?.username;
+    if (!user) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
     try {
-      const result = await leagueDB.scanLeagues();
+      const leagues = await redisClient.smembers("publicleagues");
+      if (!leagues) {
+        return res.status(200).send([]);
+      }
+      const result = await leagueDB.batchGetLeagues(leagues);
       if (result) {
         return res.status(200).send(result);
       }
       return res.status(200).send([]);
     } catch (err) {
-      console.error("Error scanning public leagues: ", err);
+      console.error("Error getting public leagues: ", err);
       return res.status(500).send({ error: "Server error. Please try again." });
     }
   });
@@ -118,6 +170,10 @@ module.exports = (app) => {
     }
     try {
       const result = await leagueDB.addEntryToLeague(id, bracketId, user);
+      await redisClient.zadd(id, [
+        0,
+        JSON.stringify({ user: user, bracket: bracketId }),
+      ]);
       if (result) {
         return res.status(200).send(result);
       }
@@ -146,6 +202,10 @@ module.exports = (app) => {
         leagueId,
         bracketId
       );
+      await redisClient.zrem(
+        leagueId,
+        JSON.stringify({ user, bracket: bracketId })
+      );
       if (result) {
         return res.sendStatus(204);
       }
@@ -164,8 +224,8 @@ module.exports = (app) => {
   app.put("/v1/league/:id", async (req, res) => {
     const user = req.session.user?.username;
     const { id } = req.params;
-    const { name, entriesPerUser, code, lockDate } = req.body;
-    if (!name || !entriesPerUser || !lockDate) {
+    const { name, code, lockDate } = req.body;
+    if (!name || !lockDate) {
       return res.status(400).send({ error: "Missing fields" });
     }
     if (!user) {
@@ -173,7 +233,6 @@ module.exports = (app) => {
     }
     const settings = {
       name: name,
-      entriesPerUser: entriesPerUser,
       code: code,
       lockDate: lockDate,
     };

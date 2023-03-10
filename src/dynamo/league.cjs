@@ -2,13 +2,13 @@ const {
   GetCommand,
   DeleteCommand,
   UpdateCommand,
-  ScanCommand,
   BatchGetCommand,
   QueryCommand,
   TransactWriteCommand,
   PutCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
+const { bracketTable } = require("./bracket.cjs");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -23,14 +23,6 @@ exports.getLeague = async (id, username) => {
       id: id,
     },
   };
-  const leagueBracketsParams = {
-    TableName: leagueBracketsTable,
-    KeyConditionExpression: "league = :l",
-    ExpressionAttributeValues: {
-      ":l": id,
-    },
-  };
-
   const userLeaguesParams = {
     TableName: userLeaguesTable,
     Key: {
@@ -48,10 +40,6 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    const { Items: brackets } = await ddbDocClient.send(
-      new QueryCommand(leagueBracketsParams)
-    );
-    league.entries = brackets;
     return league;
   } catch (err) {
     return null;
@@ -131,19 +119,16 @@ exports.updateLeagueSettings = async (id, settings) => {
     Key: {
       id: id,
     },
-    UpdateExpression:
-      "set #n = :n, #c = :c, #e = :e, #l = :l, lastUpdated = :u",
+    UpdateExpression: "set #n = :n, #c = :c, #l = :l, lastUpdated = :u",
     ExpressionAttributeValues: {
       ":n": settings.name,
       ":c": settings.code,
-      ":e": settings.entriesPerUser,
       ":l": settings.lockDate,
       ":u": new Date().toISOString(),
     },
     ExpressionAttributeNames: {
       "#n": "name",
       "#c": "code",
-      "#e": "entriesPerUser",
       "#l": "lockDate",
     },
   };
@@ -169,43 +154,12 @@ exports.removeEntryFromLeague = async (userId, leagueId, bracketId) => {
   }
 };
 
-exports.scanLeagues = async () => {
-  const params = {
-    TableName: leagueTable,
-    FilterExpression: "isPrivate = :false",
-    ExpressionAttributeValues: {
-      ":false": false,
-    },
-    ProjectionExpress: "id, name, managerId, lockDate",
-  };
-  try {
-    const { Items: leagues } = await ddbDocClient.send(new ScanCommand(params));
-    for (const league of leagues) {
-      const leagueBracketsParams = {
-        TableName: leagueBracketsTable,
-        Select: "COUNT",
-        KeyConditionExpression: "league = :l",
-        ExpressionAttributeValues: {
-          ":l": league.id,
-        },
-      };
-      const { Count: entries } = await ddbDocClient.send(
-        new QueryCommand(leagueBracketsParams)
-      );
-      league.entryCount = entries;
-    }
-    return leagues;
-  } catch (err) {
-    return null;
-  }
-};
-
 exports.batchGetLeagues = async (leagues) => {
   const params = {
     RequestItems: {
       [leagueTable]: {
         Keys: leagues.map((obj) => ({
-          id: obj.league,
+          id: obj.league || obj,
         })),
         AttributesToGet: ["id", "name", "managerId", "lockDate"],
       },
@@ -273,6 +227,47 @@ exports.grantUserEntries = async (
   try {
     await ddbDocClient.send(new UpdateCommand(params));
     return newEntries;
+  } catch (err) {
+    return null;
+  }
+};
+
+exports.getUserEntries = async (userId, leagueId) => {
+  const params = {
+    TableName: leagueBracketsTable,
+    IndexName: "user-league-index",
+    KeyConditionExpression: "#l = :l and #u = :u",
+    ExpressionAttributeValues: {
+      ":l": leagueId,
+      ":u": userId,
+    },
+    ExpressionAttributeNames: {
+      "#l": "league",
+      "#u": "user",
+    },
+  };
+  try {
+    const { Items: userLeagues } = await ddbDocClient.send(
+      new QueryCommand(params)
+    );
+    if (userLeagues.length === 0) return [];
+    const bracketParams = {
+      RequestItems: {
+        [bracketTable]: {
+          Keys: userLeagues.map((entry) => {
+            return {
+              username: entry.user,
+              id: entry.bracket,
+            };
+          }),
+          AttributesToGet: ["id", "username", "name", "winnerName"],
+        },
+      },
+    };
+    const { Responses } = await ddbDocClient.send(
+      new BatchGetCommand(bracketParams)
+    );
+    return Responses[bracketTable];
   } catch (err) {
     return null;
   }
