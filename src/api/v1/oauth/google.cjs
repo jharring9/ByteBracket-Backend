@@ -4,7 +4,7 @@ const userDB = require("../../../dynamo/user.cjs");
 const CLIENT_ID =
   "213000508882-r8u1p0q5rm6v7u82hvs0ncq9b1nkkqo5.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
-const SERVER_ROOT_URI = "http://localhost:8080";
+const SERVER_ROOT_URI = "https://bytebracket.io";
 const REDIRECT_URI = "auth/callback/google";
 
 module.exports = (app) => {
@@ -21,7 +21,6 @@ module.exports = (app) => {
         clientSecret: CLIENT_SECRET,
         redirectUri: `${SERVER_ROOT_URI}/${REDIRECT_URI}`,
       });
-      console.log(id_token, access_token);
 
       const googleUser = await axios
         .get(
@@ -36,7 +35,6 @@ module.exports = (app) => {
         .catch((error) => {
           throw new Error(error.message);
         });
-      console.log(googleUser);
 
       /* Try to find user in DynamoDB - if it doesn't exist, create it */
       const dynamoUser = await userDB.getUser(googleUser.email.toLowerCase());
