@@ -269,7 +269,6 @@ exports.getUserEntries = async (userId, leagueId) => {
     );
     return Responses[bracketTable];
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
