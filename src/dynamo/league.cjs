@@ -24,7 +24,6 @@ exports.getLeague = async (id, username) => {
       id: id,
     },
   };
-
   const userLeaguesParams = {
     TableName: userLeaguesTable,
     Key: {
@@ -42,7 +41,8 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    league.entries = await redisClient.zrevrange(id, 0, 24);
+    league.entries = await redisClient.zrevrange(id, 0, 24, "WITHSCORES");
+    console.log(league.entries);
     return league;
   } catch (err) {
     return null;
