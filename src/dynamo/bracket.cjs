@@ -95,9 +95,8 @@ exports.batchGetBrackets = async (entries) => {
     RequestItems: {
       [bracketTable]: {
         Keys: entries.map((entry) => {
-          console.log(entry);
-          let data = entry[0];
-          data = JSON.parse(data);
+          if (typeof entry === "string") return;
+          const data = JSON.parse(entry);
           return {
             username: data.user,
             id: data.bracket,
@@ -111,7 +110,7 @@ exports.batchGetBrackets = async (entries) => {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
 
     const bracketsWithPoints = Responses[bracketTable].map((bracket, index) => {
-      bracket.points = entries[index][1];
+      bracket.points = entries[index * 2 + 1];
       return bracket;
     });
 
