@@ -91,6 +91,7 @@ exports.deleteBracket = async (username, id) => {
 };
 
 exports.batchGetBrackets = async (entries) => {
+  console.log(entries);
   const brackets = entries.filter((e, i) => i % 2 === 0);
   const points = entries.filter((e, i) => i % 2 === 1);
   const params = {
