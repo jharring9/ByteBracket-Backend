@@ -170,14 +170,14 @@ module.exports = (app) => {
     }
     try {
       const result = await leagueDB.addEntryToLeague(id, bracketId, user);
-      await redisClient.zadd(id, [
-        0,
-        JSON.stringify({ user: user, bracket: bracketId }),
-      ]);
       if(result.error) {
         return res.status(400).send(result);
       }
       else if (result) {
+        await redisClient.zadd(id, [
+          0,
+          JSON.stringify({ user: user, bracket: bracketId }),
+        ]);
         return res.status(200).send(result);
       }
       return res.status(500).send({ error: "Error adding entry to league" });
