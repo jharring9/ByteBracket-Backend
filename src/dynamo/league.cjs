@@ -160,7 +160,7 @@ exports.batchGetLeagues = async (leagues) => {
     RequestItems: {
       [leagueTable]: {
         Keys: leagues.map((obj) => ({
-          id: obj.league,
+          id: obj.league || obj,
         })),
         AttributesToGet: ["id", "name", "managerId", "lockDate"],
       },

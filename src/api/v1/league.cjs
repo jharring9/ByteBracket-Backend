@@ -74,7 +74,6 @@ module.exports = (app) => {
     }
     try {
       const leagues = await redisClient.smembers("publicleagues");
-      console.log(leagues);
       if (!leagues) {
         return res.status(200).send([]);
       }
