@@ -50,7 +50,6 @@ exports.saveLeague = async (league, userId) => {
   const now = new Date().toISOString();
   league.created = now;
   league.lastUpdated = now;
-
   const params = {
     TransactItems: [
       {
@@ -157,7 +156,6 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     if (!userLeagueObj) await addLeagueToUser(userId, leagueId);
     return await ddbDocClient.send(new PutCommand(leagueBracketParams));
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
