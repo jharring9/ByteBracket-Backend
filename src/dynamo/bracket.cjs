@@ -137,6 +137,7 @@ exports.getBracketLeagues = async (bracketId) => {
     );
     return leagueList;
   } catch (err) {
+    console.log(err);
     return null;
   }
 };
