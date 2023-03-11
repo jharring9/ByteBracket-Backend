@@ -120,7 +120,7 @@ exports.batchGetBrackets = async (entries) => {
 
 exports.getBracketLeagues = async (bracketId) => {
   const params = {
-    TableName: leagueBracketsTable,
+    TableName: "league_brackets",
     IndexName: "bracket-index",
     KeyConditionExpression: "#b = :b",
     ExpressionAttributeNames: {
