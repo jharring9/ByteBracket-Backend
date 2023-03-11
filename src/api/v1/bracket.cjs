@@ -52,9 +52,6 @@ module.exports = (app) => {
    */
   app.get("/v1/:user/bracket/:id", async (req, res) => {
     const { user, id } = req.params;
-    if (!req.session.user?.username) {
-      return res.status(401).send({ error: "unauthorized" });
-    }
     try {
       const result = await bracketDB.getBracket(user, id);
       if (result) {
