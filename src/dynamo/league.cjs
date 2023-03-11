@@ -144,7 +144,6 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
         new GetCommand(userLeaguesParams)
     );
     if (currentEntries >= league.entriesPerUser) {
-      console.log(userLeagueObj);
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
         return {
           error:
