@@ -40,7 +40,6 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    console.log(league);
     return league;
   } catch (err) {
     return null;
@@ -126,31 +125,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     },
     ProjectionExpression: "allowedEntries",
   };
-
-  try {
-    const { Count: currentEntries } = await ddbDocClient.send(
-      new QueryCommand(leagueBracketsParams)
-    );
-    const { Item: league } = await ddbDocClient.send(
-      new GetCommand(leagueParams)
-    );
-    if (currentEntries >= league.entriesPerUser) {
-      const { Item: userLeagueObj } = await ddbDocClient.send(
-        new GetCommand(userLeaguesParams)
-      );
-      if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
-        return {
-          error:
-            "You have reached the maximum number of entries for this league",
-        };
-      }
-    }
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-
-  const params = {
+  const leagueBracketParams = {
     TableName: leagueBracketsTable,
     Item: {
       league: leagueId,
@@ -160,8 +135,27 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
   };
 
   try {
-    await addLeagueToUser(userId, leagueId);
-    return await ddbDocClient.send(new PutCommand(params));
+    let userLeagueObj;
+    const { Count: currentEntries } = await ddbDocClient.send(
+      new QueryCommand(leagueBracketsParams)
+    );
+    const { Item: league } = await ddbDocClient.send(
+      new GetCommand(leagueParams)
+    );
+    if (currentEntries >= league.entriesPerUser) {
+      const { Item } = await ddbDocClient.send(
+        new GetCommand(userLeaguesParams)
+      );
+      userLeagueObj = Item;
+      if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
+        return {
+          error:
+            "You have reached the maximum number of entries for this league",
+        };
+      }
+    }
+    if (!userLeagueObj) await addLeagueToUser(userId, leagueId);
+    return await ddbDocClient.send(new PutCommand(leagueBracketParams));
   } catch (err) {
     console.log(err);
     return null;
