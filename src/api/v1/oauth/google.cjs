@@ -107,6 +107,6 @@ async function getTokens({ code, clientId, clientSecret, redirectUri }) {
     })
     .then((res) => res.data)
     .catch((error) => {
-      throw new Error(error.message);
+      console.log(error);
     });
 }
