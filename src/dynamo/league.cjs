@@ -140,12 +140,11 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     const { Item: league } = await ddbDocClient.send(
       new GetCommand(leagueParams)
     );
-    if (currentEntries >= league.entriesPerUser) {
-      const { Item: userLeagueObj } = await ddbDocClient.send(
+    const { Item: userLeagueObj } = await ddbDocClient.send(
         new GetCommand(userLeaguesParams)
-      );
+    );
+    if (currentEntries >= league.entriesPerUser) {
       console.log(userLeagueObj);
-      if (!userLeagueObj) await addLeagueToUser(userId, leagueId);
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
         return {
           error:
@@ -153,6 +152,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
         };
       }
     }
+    if (!userLeagueObj) await addLeagueToUser(userId, leagueId);
     return await ddbDocClient.send(new PutCommand(leagueBracketParams));
   } catch (err) {
     return null;
