@@ -144,6 +144,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
       const { Item: userLeagueObj } = await ddbDocClient.send(
         new GetCommand(userLeaguesParams)
       );
+      console.log(userLeagueObj);
       if (!userLeagueObj) await addLeagueToUser(userId, leagueId);
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
         return {
