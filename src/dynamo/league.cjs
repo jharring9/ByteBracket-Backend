@@ -133,16 +133,10 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
     const { Item: league } = await ddbDocClient.send(
       new GetCommand(leagueParams)
     );
-    console.log(currentEntries, league.entriesPerUser);
     if (currentEntries >= league.entriesPerUser) {
-      return {
-        error: "You have reached the maximum number of entries for this league",
-      };
-    } else {
       const { Item: userLeagueObj } = await ddbDocClient.send(
         new GetCommand(userLeaguesParams)
       );
-      console.log(userLeagueObj.allowedEntries);
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
         return {
           error:
