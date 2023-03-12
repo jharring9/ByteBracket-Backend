@@ -66,7 +66,7 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_State_Aztecs_logo.svg/2560px-San_Diego_State_Aztecs_logo.svg.png",
   Texas:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Texas_Longhorns_logo.svg/2560px-Texas_Longhorns_logo.svg.png",
-  "Kansas State":
+  "Kansas St.":
     "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/Kansas_State_Wildcats_logo.svg/800px-Kansas_State_Wildcats_logo.svg.png",
   Virginia:
     "https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Virginia_Cavaliers_sabre.svg/2560px-Virginia_Cavaliers_sabre.svg.png",
@@ -138,52 +138,31 @@ exports.LOGOS = {
   Colgate:
     "https://upload.wikimedia.org/wikipedia/commons/8/84/Colgate_Raiders_%282020%29_logo.svg",
   Louisiana:
-    "https://upload.wikimedia.org/wikipedia/commons/f/f0/Louisiana_Ragin%27_Cajuns_wordmark.svg",
+    "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Ragin_Cajuns_logo.svg/1200px-Ragin_Cajuns_logo.svg.png",
   Iona: "https://upload.wikimedia.org/wikipedia/en/1/19/Iona_Gaels_logo.svg",
   "UNC Asheville":
     "https://upload.wikimedia.org/wikipedia/en/9/93/UNC_Asheville_Bulldogs_logo.svg",
+  Vermont:
+    "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Vermont_Catamounts_logo.svg/1200px-Vermont_Catamounts_logo.svg.png",
+  Howard:
+    "https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Howard_Bison_logo.svg/1200px-Howard_Bison_logo.svg.png",
+  VCU: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/VCU_Rams_logo.svg/2560px-VCU_Rams_logo.svg.png",
+  "Grand Canyon":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Grand_Canyon_Antelopes_logo.svg/2560px-Grand_Canyon_Antelopes_logo.svg.png",
+  USCB: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/UC_Santa_Barbara_Gauchos_logo.svg/1200px-UC_Santa_Barbara_Gauchos_logo.svg.png",
+  "Utah St.":
+    "https://upload.wikimedia.org/wikipedia/commons/5/59/Utah_State_Aggies_logo.svg",
+  Princeton:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Princeton_Tigers_logo.svg/671px-Princeton_Tigers_logo.svg.png",
+  "N. Kentucky":
+    "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Northern_Kentucky_Norse_logo.svg/800px-Northern_Kentucky_Norse_logo.svg.png",
+  Iowa: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Iowa_Hawkeyes_logo.svg/1200px-Iowa_Hawkeyes_logo.svg.png",
 };
 
 /**
  * Teams in the tournament. Every 16 indices represents a new region. Seeds are in order 1-16 for each region.
  */
 exports.TEAMS = [
-  /* East */
-  "Purdue",
-  "Marquette",
-  "Kansas St.",
-  "Tennessee",
-  "Duke",
-  "Kentucky",
-  "Michigan St.",
-  "Memphis",
-  "FAU",
-  "USC",
-  "Providence",
-  "Oral Roberts",
-  "Louisiana",
-  "Montana St.",
-  "Vermont",
-  "Texas Southern/F. Dickinson",
-
-  /* West */
-  "Kansas",
-  "UCLA",
-  "Gonzaga",
-  "UConn",
-  "St. Mary's",
-  "TCU",
-  "Northwestern",
-  "Arkansas",
-  "Illinois",
-  "Boise St.",
-  "Arizona St./Nevada",
-  "VCU",
-  "Iona",
-  "Grand Canyon",
-  "UNC Asheville",
-  "Howard",
-
   /* South */
   "Alabama",
   "Arizona",
@@ -202,6 +181,24 @@ exports.TEAMS = [
   "Princeton",
   "TAMU-CC/SE Missouri St.",
 
+  /* East */
+  "Purdue",
+  "Marquette",
+  "Kansas St.",
+  "Tennessee",
+  "Duke",
+  "Kentucky",
+  "Michigan St.",
+  "Memphis",
+  "FAU",
+  "USC",
+  "Providence",
+  "Oral Roberts",
+  "Louisiana",
+  "Montana St.",
+  "Vermont",
+  "Texas Southern/F. Dickinson",
+
   /* Midwest */
   "Houston",
   "Texas",
@@ -219,6 +216,24 @@ exports.TEAMS = [
   "Kennesaw St.",
   "Colgate",
   "N. Kentucky",
+
+  /* West */
+  "Kansas",
+  "UCLA",
+  "Gonzaga",
+  "UConn",
+  "St. Mary's",
+  "TCU",
+  "Northwestern",
+  "Arkansas",
+  "Illinois",
+  "Boise St.",
+  "Arizona St./Nevada",
+  "VCU",
+  "Iona",
+  "Grand Canyon",
+  "UNC Asheville",
+  "Howard",
 ];
 
 exports.FIRST_FOUR = [
