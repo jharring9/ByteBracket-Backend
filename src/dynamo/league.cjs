@@ -212,20 +212,6 @@ exports.batchGetLeagues = async (leagues) => {
   };
   try {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
-    for (const league of Responses[leagueTable]) {
-      const leagueBracketsParams = {
-        TableName: leagueBracketsTable,
-        Select: "COUNT",
-        KeyConditionExpression: "league = :l",
-        ExpressionAttributeValues: {
-          ":l": league.id,
-        },
-      };
-      const { Count: entries } = await ddbDocClient.send(
-        new QueryCommand(leagueBracketsParams)
-      );
-      league.entryCount = entries;
-    }
     return Responses[leagueTable];
   } catch (err) {
     return null;
