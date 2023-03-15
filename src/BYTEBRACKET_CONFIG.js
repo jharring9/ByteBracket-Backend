@@ -157,6 +157,8 @@ exports.LOGOS = {
   "N. Kentucky":
     "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Northern_Kentucky_Norse_logo.svg/800px-Northern_Kentucky_Norse_logo.svg.png",
   Iowa: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Iowa_Hawkeyes_logo.svg/1200px-Iowa_Hawkeyes_logo.svg.png",
+  "TAMU-CC": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Texas_A%26M%E2%80%93Corpus_Christi_Islanders_wordmark.svg",
+  "Pitt": "https://upload.wikimedia.org/wikipedia/commons/4/44/Pitt_Panthers_wordmark.svg",
 };
 
 /**
@@ -179,7 +181,7 @@ exports.TEAMS = [
   "Furman",
   "UCSB",
   "Princeton",
-  "TAMU-CC/SE Missouri St.",
+  "TAMU-CC",
 
   /* East */
   "Purdue",
@@ -210,7 +212,7 @@ exports.TEAMS = [
   "Iowa",
   "Auburn",
   "Penn St.",
-  "Miss St./Pitt",
+  "Pitt",
   "Drake",
   "Kent St.",
   "Kennesaw St.",
@@ -239,6 +241,4 @@ exports.TEAMS = [
 exports.FIRST_FOUR = [
   ["Texas Southern", "F. Dickinson"],
   ["Arizona St.", "Nevada"],
-  ["TAMU-CC", "SE Missouri St."],
-  ["Miss St.", "Pitt"],
 ];
