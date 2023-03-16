@@ -6,7 +6,6 @@ const {
   BatchGetCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
-const { leagueBracketsTable } = require("./league.cjs");
 
 const bracketTable = "brackets";
 exports.bracketTable = bracketTable;
@@ -91,16 +90,24 @@ exports.deleteBracket = async (username, id) => {
 
 exports.batchGetBrackets = async (entries) => {
   if (entries.length === 0) return [];
-  const brackets = entries.filter((e, i) => i % 2 === 0);
-  const points = entries.filter((e, i) => i % 2 === 1);
+
+  // Create a map of entry ID to points
+  const pointsMap = {};
+  for (let i = 0; i < entries.length; i += 2) {
+    const data = JSON.parse(entries[i]);
+    pointsMap[data.bracket] = {
+      points: entries[i + 1],
+      user: data.user,
+    };
+  }
+
   const params = {
     RequestItems: {
       [bracketTable]: {
-        Keys: brackets.map((entry) => {
-          const data = JSON.parse(entry);
+        Keys: Object.keys(pointsMap).map((bracketId) => {
           return {
-            username: data.user,
-            id: data.bracket,
+            username: pointsMap[bracketId].user,
+            id: bracketId,
           };
         }),
         AttributesToGet: ["id", "username", "name", "winnerName"],
@@ -109,8 +116,8 @@ exports.batchGetBrackets = async (entries) => {
   };
   try {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
-    return Responses[bracketTable].map((bracket, index) => {
-      bracket.points = points[index];
+    return Responses[bracketTable].map((bracket) => {
+      bracket.points = pointsMap[bracket.id].points;
       return bracket;
     });
   } catch (err) {
