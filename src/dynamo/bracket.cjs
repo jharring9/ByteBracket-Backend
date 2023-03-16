@@ -6,7 +6,6 @@ const {
   BatchGetCommand,
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
-const { leagueBracketsTable } = require("./league.cjs");
 
 const bracketTable = "brackets";
 exports.bracketTable = bracketTable;
@@ -91,6 +90,7 @@ exports.deleteBracket = async (username, id) => {
 
 exports.batchGetBrackets = async (entries) => {
   if (entries.length === 0) return [];
+  console.log(entries);
   const brackets = entries.filter((e, i) => i % 2 === 0);
   const points = entries.filter((e, i) => i % 2 === 1);
   const params = {
