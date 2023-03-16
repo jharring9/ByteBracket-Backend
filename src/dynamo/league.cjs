@@ -302,7 +302,7 @@ exports.getUserEntries = async (userId, leagueId) => {
 
     const entries = Responses[bracketTable].map(async (bracket) => {
       const points = await redisClient.zscore(
-        bracket.league,
+        leagueId,
         JSON.stringify({ user: userId, bracket: bracket.id })
       );
       console.log(points);
