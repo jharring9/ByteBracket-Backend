@@ -9,6 +9,7 @@ const {
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
 const { bracketTable } = require("./bracket.cjs");
+const { redisClient } = require("../redisClient");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -141,7 +142,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
       new GetCommand(leagueParams)
     );
     const { Item: userLeagueObj } = await ddbDocClient.send(
-        new GetCommand(userLeaguesParams)
+      new GetCommand(userLeaguesParams)
     );
     if (currentEntries >= league.entriesPerUser) {
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
@@ -298,7 +299,20 @@ exports.getUserEntries = async (userId, leagueId) => {
     const { Responses } = await ddbDocClient.send(
       new BatchGetCommand(bracketParams)
     );
-    return Responses[bracketTable];
+
+    const entries = Responses[bracketTable].map(async (bracket) => {
+      const points = await redisClient.zscore(
+        bracket.league,
+        JSON.stringify({ user: userId, bracket: bracket.id })
+      );
+      console.log(points);
+      // TODO -- handle error/null response -- just send points as 0
+      bracket.points = points;
+
+      return bracket;
+    });
+
+    return entries;
   } catch (err) {
     return null;
   }
