@@ -41,6 +41,7 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
+    league.entries = await redisClient.zcard(id);
     return league;
   } catch (err) {
     return null;
