@@ -1,7 +1,3 @@
-/*
-BEFORE UPDATING AP RANKINGS OR TEAMS/FIELD, MAKE SURE ANY NEW TEAMS' LOGOS ARE ADDED.
- */
-
 /**
  * Current AP Rankings, using in the top 25.
  */
@@ -120,7 +116,6 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Indiana_Hoosiers_logo.svg/1621px-Indiana_Hoosiers_logo.svg.png",
   "Miss St.":
     "https://upload.wikimedia.org/wikipedia/commons/3/36/Mississippi_State_Bulldogs_logo.svg",
-  Pitt: "https://www.logolynx.com/images/logolynx/be/bef8899c2d8f85eb3cbab1c045f630f6.png",
   Kentucky:
     "https://upload.wikimedia.org/wikipedia/commons/5/5d/Kentucky_Wildcats_logo_2015.png",
   "Texas A&M":
@@ -157,8 +152,11 @@ exports.LOGOS = {
   "N. Kentucky":
     "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Northern_Kentucky_Norse_logo.svg/800px-Northern_Kentucky_Norse_logo.svg.png",
   Iowa: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Iowa_Hawkeyes_logo.svg/1200px-Iowa_Hawkeyes_logo.svg.png",
-  "TAMU-CC": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Texas_A%26M%E2%80%93Corpus_Christi_Islanders_wordmark.svg",
-  "Pitt": "https://upload.wikimedia.org/wikipedia/commons/4/44/Pitt_Panthers_wordmark.svg",
+  "TAMU-CC":
+    "https://upload.wikimedia.org/wikipedia/commons/4/4e/Texas_A%26M%E2%80%93Corpus_Christi_Islanders_wordmark.svg",
+  Pitt: "https://upload.wikimedia.org/wikipedia/commons/4/44/Pitt_Panthers_wordmark.svg",
+  "F. Dickinson":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/FDU_Knights_Logo.png/543px-FDU_Knights_Logo.png",
 };
 
 /**
@@ -199,7 +197,7 @@ exports.TEAMS = [
   "Louisiana",
   "Montana St.",
   "Vermont",
-  "Texas Southern/F. Dickinson",
+  "F. Dickinson",
 
   /* Midwest */
   "Houston",
@@ -230,15 +228,10 @@ exports.TEAMS = [
   "Arkansas",
   "Illinois",
   "Boise St.",
-  "Arizona St./Nevada",
+  "Nevada",
   "VCU",
   "Iona",
   "Grand Canyon",
   "UNC Asheville",
   "Howard",
-];
-
-exports.FIRST_FOUR = [
-  ["Texas Southern", "F. Dickinson"],
-  ["Arizona St.", "Nevada"],
 ];

@@ -3,7 +3,6 @@ const {
   TEAMS,
   LOGOS,
   AP_RANKINGS,
-  FIRST_FOUR,
 } = require("../../BYTEBRACKET_CONFIG.js");
 
 const client = new LambdaClient({ region: "us-east-1" });
@@ -26,7 +25,6 @@ module.exports = (app) => {
         });
         const { Payload } = await client.send(command);
         let data = JSON.parse(Buffer.from(Payload).toString());
-        data = firstFourTransform(data);
         let top25Schools = data["Schools"].slice(0, 25);
         let Ws = data["W"].slice(0, 25);
         let Ls = data["L"].slice(0, 25);
@@ -70,22 +68,4 @@ const generateField = (s2p) => {
     seed: (index % 16) + 1,
     percentile: s2p ? s2p[team] : null,
   }));
-};
-
-const firstFourTransform = (lambdaData) => {
-  FIRST_FOUR.forEach((teams) => {
-    let ind1 = lambdaData["Schools"].indexOf(teams[0]);
-    let ind2 = lambdaData["Schools"].indexOf(teams[1]);
-    let new_p =
-      (lambdaData["percentiles"][ind1] + lambdaData["percentiles"][ind2]) / 2;
-    let W_Avg = (lambdaData["W"][ind1] + lambdaData["W"][ind2]) / 2;
-    let L_Avg = (lambdaData["L"][ind1] + lambdaData["L"][ind2]) / 2;
-    lambdaData["Schools"].push(
-      `${lambdaData["Schools"][ind1]}/${lambdaData["Schools"][ind2]}`
-    );
-    lambdaData["percentiles"].push(new_p);
-    lambdaData["W"].push(W_Avg);
-    lambdaData["L"].push(L_Avg);
-  });
-  return lambdaData;
 };

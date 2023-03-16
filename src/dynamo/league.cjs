@@ -302,16 +302,18 @@ exports.getUserEntries = async (userId, leagueId) => {
 
     const entries = await Promise.all(
       Responses[bracketTable].map(async (bracket) => {
-        const points = await redisClient.zscore(
+        bracket.points = await redisClient.zscore(
           leagueId,
           JSON.stringify({ user: userId, bracket: bracket.id })
         );
-        // TODO -- handle error/null response -- just send points as 0
-        bracket.points = points;
+        bracket.rank = await redisClient.zrevrank(
+          leagueId,
+          JSON.stringify({ user: userId, bracket: bracket.id })
+        );
         return bracket;
       })
     );
-    console.log(entries);
+    console.log(entries); // TODO remove
 
     return entries;
   } catch (err) {
