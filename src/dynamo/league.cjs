@@ -300,17 +300,17 @@ exports.getUserEntries = async (userId, leagueId) => {
       new BatchGetCommand(bracketParams)
     );
 
-    const entries = Responses[bracketTable].map(async (bracket) => {
+    const entries = await Responses[bracketTable].map(async (bracket) => {
       const points = await redisClient.zscore(
         leagueId,
         JSON.stringify({ user: userId, bracket: bracket.id })
       );
-      console.log(points);
       // TODO -- handle error/null response -- just send points as 0
       bracket.points = points;
-
+      console.log(bracket);
       return bracket;
     });
+    console.log(entries);
 
     return entries;
   } catch (err) {
