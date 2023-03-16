@@ -114,10 +114,8 @@ exports.batchGetBrackets = async (entries) => {
       },
     },
   };
-  console.log(params);// TODO -- remove
   try {
     const { Responses } = await ddbDocClient.send(new BatchGetCommand(params));
-    console.log(Responses[bracketTable]); // TODO -- remove
     return Responses[bracketTable].map((bracket) => {
       bracket.points = pointsMap[bracket.id].points;
       return bracket;
