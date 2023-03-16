@@ -9,6 +9,7 @@ const {
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
 const { bracketTable } = require("./bracket.cjs");
+const { redisClient } = require("../redisClient");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -40,6 +41,7 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
+    league.entries = await redisClient.zcard(id);
     return league;
   } catch (err) {
     return null;
@@ -141,7 +143,7 @@ exports.addEntryToLeague = async (leagueId, bracketId, userId) => {
       new GetCommand(leagueParams)
     );
     const { Item: userLeagueObj } = await ddbDocClient.send(
-        new GetCommand(userLeaguesParams)
+      new GetCommand(userLeaguesParams)
     );
     if (currentEntries >= league.entriesPerUser) {
       if (!userLeagueObj || currentEntries >= userLeagueObj.allowedEntries) {
@@ -298,7 +300,20 @@ exports.getUserEntries = async (userId, leagueId) => {
     const { Responses } = await ddbDocClient.send(
       new BatchGetCommand(bracketParams)
     );
-    return Responses[bracketTable];
+    return await Promise.all(
+      Responses[bracketTable].map(async (bracket) => {
+        bracket.points = await redisClient.zscore(
+          leagueId,
+          JSON.stringify({ user: userId, bracket: bracket.id })
+        );
+        bracket.rank =
+          (await redisClient.zrevrank(
+            leagueId,
+            JSON.stringify({ user: userId, bracket: bracket.id })
+          )) + 1;
+        return bracket;
+      })
+    );
   } catch (err) {
     return null;
   }
