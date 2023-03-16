@@ -299,23 +299,20 @@ exports.getUserEntries = async (userId, leagueId) => {
     const { Responses } = await ddbDocClient.send(
       new BatchGetCommand(bracketParams)
     );
-
-    const entries = await Promise.all(
+    return await Promise.all(
       Responses[bracketTable].map(async (bracket) => {
         bracket.points = await redisClient.zscore(
           leagueId,
           JSON.stringify({ user: userId, bracket: bracket.id })
         );
-        bracket.rank = await redisClient.zrevrank(
-          leagueId,
-          JSON.stringify({ user: userId, bracket: bracket.id })
-        );
+        bracket.rank =
+          (await redisClient.zrevrank(
+            leagueId,
+            JSON.stringify({ user: userId, bracket: bracket.id })
+          )) + 1;
         return bracket;
       })
     );
-    console.log(entries); // TODO remove
-
-    return entries;
   } catch (err) {
     return null;
   }
