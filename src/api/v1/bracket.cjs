@@ -76,6 +76,14 @@ module.exports = (app) => {
     try {
       const result = await bracketDB.getUserBrackets(user);
       if (result) {
+        console.log(result);
+        for(const bracket of result) {
+          const points = await redisClient.zscore(bracket.league, JSON.stringify({ user, bracket: bracket.id }));
+          console.log(points);
+          // TODO -- handle error/null response -- just send points as 0
+          bracket.points = points;
+        }
+
         return res.status(200).send(result);
       }
       return res.status(404).send({ error: "User not found" });
