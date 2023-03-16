@@ -101,6 +101,8 @@ module.exports = (app) => {
         await redisClient.zrem(
           league.league,
           JSON.stringify({ user, bracket: id })
+            .replace(/":"/g, '": "')
+            .replace(/","/g, '", "')
         );
       }
       const result = await bracketDB.deleteBracket(user, id);

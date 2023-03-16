@@ -170,13 +170,14 @@ module.exports = (app) => {
     }
     try {
       const result = await leagueDB.addEntryToLeague(id, bracketId, user);
-      if(result.error) {
+      if (result.error) {
         return res.status(400).send(result);
-      }
-      else if (result) {
+      } else if (result) {
         await redisClient.zadd(id, [
           0,
-          JSON.stringify({ user: user, bracket: bracketId }),
+          JSON.stringify({ user: user, bracket: bracketId })
+            .replace(/":"/g, '": "')
+            .replace(/","/g, '", "'),
         ]);
         return res.status(200).send(result);
       }
@@ -208,6 +209,8 @@ module.exports = (app) => {
       await redisClient.zrem(
         leagueId,
         JSON.stringify({ user, bracket: bracketId })
+          .replace(/":"/g, '": "')
+          .replace(/","/g, '", "')
       );
       if (result) {
         return res.sendStatus(204);

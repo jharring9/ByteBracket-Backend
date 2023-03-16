@@ -305,11 +305,15 @@ exports.getUserEntries = async (userId, leagueId) => {
         bracket.points = await redisClient.zscore(
           leagueId,
           JSON.stringify({ user: userId, bracket: bracket.id })
+            .replace(/":"/g, '": "')
+            .replace(/","/g, '", "')
         );
         bracket.rank =
           (await redisClient.zrevrank(
             leagueId,
             JSON.stringify({ user: userId, bracket: bracket.id })
+              .replace(/":"/g, '": "')
+              .replace(/","/g, '", "')
           )) + 1;
         return bracket;
       })
