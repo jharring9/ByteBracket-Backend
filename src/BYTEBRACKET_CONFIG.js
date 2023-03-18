@@ -228,7 +228,7 @@ exports.TEAMS = [
   "Arkansas",
   "Illinois",
   "Boise St.",
-  "Nevada",
+  "Arizona St.",
   "VCU",
   "Iona",
   "Grand Canyon",
