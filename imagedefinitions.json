@@ -1,13 +1,13 @@
 {
-  "family": "ByteBracket-API-taskfamily",
+  "family": "ByteBracket-Container",
   "containerDefinitions": [
     {
-      "name": "ByteBracket-API-container",
-      "image": "312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-api",
+      "name": "ByteBracket-Container",
+      "image": "312042277619.dkr.ecr.us-east-1.amazonaws.com/bytebracket-backend-ecrrepo",
       "cpu": 0,
       "portMappings": [
         {
-          "name": "bytebracket-api-container-80-tcp",
+          "name": "ByteBracket-Container-80-tcp",
           "containerPort": 80,
           "hostPort": 80,
           "protocol": "tcp",
