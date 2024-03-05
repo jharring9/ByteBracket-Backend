@@ -9,7 +9,7 @@ const {
 } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("./ddbDocumentClient.cjs");
 const { bracketTable } = require("./bracket.cjs");
-// const { redisClient } = require("../redisClient");
+const { redisClient } = require("../redisClient");
 
 const leagueTable = "leagues";
 const leagueBracketsTable = "league_brackets";
@@ -41,7 +41,7 @@ exports.getLeague = async (id, username) => {
     if (userLeagueObj && userLeagueObj.allowedEntries > league.entriesPerUser) {
       league.entriesPerUser = userLeagueObj.allowedEntries;
     }
-    // league.entries = await redisClient.zcard(id);
+    league.entries = await redisClient.zcard(id);
     return league;
   } catch (err) {
     return null;
@@ -302,19 +302,19 @@ exports.getUserEntries = async (userId, leagueId) => {
     );
     return await Promise.all(
       Responses[bracketTable].map(async (bracket) => {
-        // bracket.points = await redisClient.zscore(
-        //   leagueId,
-        //   JSON.stringify({ user: userId, bracket: bracket.id })
-        //     .replace(/":"/g, '": "')
-        //     .replace(/","/g, '", "')
-        // );
-        // bracket.rank =
-        //   (await redisClient.zrevrank(
-        //     leagueId,
-        //     JSON.stringify({ user: userId, bracket: bracket.id })
-        //       .replace(/":"/g, '": "')
-        //       .replace(/","/g, '", "')
-        //   )) + 1;
+        bracket.points = await redisClient.zscore(
+          leagueId,
+          JSON.stringify({ user: userId, bracket: bracket.id })
+            .replace(/":"/g, '": "')
+            .replace(/","/g, '", "')
+        );
+        bracket.rank =
+          (await redisClient.zrevrank(
+            leagueId,
+            JSON.stringify({ user: userId, bracket: bracket.id })
+              .replace(/":"/g, '": "')
+              .replace(/","/g, '", "')
+          )) + 1;
         return bracket;
       })
     );
