@@ -21,13 +21,12 @@ const setupServer = async () => {
 
   /* Health check API */
   app.get("/health", (req, res) => {
-    console.info("Health check passed");
     return res.sendStatus(200);
   });
 
   /* Start the server */
   const server = app.listen(80, () => {
-    console.info(`ByteBracket backend listening on: ${server.address().port}`);
+    console.info(`ByteBracket backend listening on port ${server.address().port}`);
   });
 };
 
