@@ -33,7 +33,7 @@ module.exports = (app) => {
         });
         data["field"] = generateField(s2p);
         data["top25"] = top25Schools.map((school, index) => {
-          let r = school in AP_RANKINGS ? AP_RANKINGS[school] : 26;
+          let r = AP_RANKINGS.has(school) ? AP_RANKINGS.get(school) : 26;
           return {
             team: school,
             rank: index + 1,
