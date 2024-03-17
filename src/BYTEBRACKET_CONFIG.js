@@ -235,3 +235,8 @@ exports.TEAMS = [
   "UNC Asheville",
   "Howard",
 ];
+
+exports.FIRST_FOUR = [
+  ["Texas Southern", "F. Dickinson"],
+  ["Arizona St.", "Nevada"],
+];
