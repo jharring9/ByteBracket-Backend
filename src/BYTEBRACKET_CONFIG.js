@@ -44,9 +44,9 @@ exports.LOGOS = {
   Wisconsin:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Wisconsin_Badgers_logo.svg/2171px-Wisconsin_Badgers_logo.svg.png",
   "Washington St.":
-    "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Washington_St._Cougars_logo.svg/1200px-Washington_St._Cougars_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Washington_State_Cougars_logo.svg/1200px-Washington_State_Cougars_logo.svg.png",
   "Utah St.":
-    "https://upload.wikimedia.org/wikipedia/commons/5/59/Utah_St._Aggies_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/5/59/Utah_State_Aggies_logo.svg",
   Nebraska:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nebraska_Cornhuskers_logo.svg/2048px-Nebraska_Cornhuskers_logo.svg.png",
   "New Mexico":
@@ -55,7 +55,7 @@ exports.LOGOS = {
   "James Madison":
     "https://content.sportslogos.net/logos/32/717/full/james_madison_dukes_logo_primary_20128040.png",
   "McNeese St.":
-    "https://upload.wikimedia.org/wikipedia/commons/3/31/McNeese_St._%22M%22_logo.png",
+    "https://upload.wikimedia.org/wikipedia/commons/3/31/McNeese_State_%22M%22_logo.png",
   UAB: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/UAB_Blazers_logo.svg/200px-UAB_Blazers_logo.svg.png",
   Colgate:
     "https://upload.wikimedia.org/wikipedia/commons/8/84/Colgate_Raiders_%282020%29_logo.svg",
@@ -66,7 +66,7 @@ exports.LOGOS = {
   Connecticut:
     "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Connecticut_Huskies_logo.svg/1200px-Connecticut_Huskies_logo.svg.png",
   "Iowa St.":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_St._Cyclones_logo.svg/2560px-Iowa_St._Cyclones_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/2560px-Iowa_State_Cyclones_logo.svg.png",
   Auburn:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/2317px-Auburn_Tigers_logo.svg.png",
   Duke: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Duke_Athletics_logo.svg/2293px-Duke_Athletics_logo.svg.png",
@@ -77,19 +77,19 @@ exports.LOGOS = {
   Nevada:
     "https://upload.wikimedia.org/wikipedia/commons/5/53/Nevada_Wolf_Pack_alternate_logo.png",
   "Boise St.":
-    "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Primary_Boise_St._Broncos_Athletics_Logo.svg/1200px-Primary_Boise_St._Broncos_Athletics_Logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Primary_Boise_State_Broncos_Athletics_Logo.svg/1200px-Primary_Boise_State_Broncos_Athletics_Logo.svg.png",
   "Mississippi St.":
-    "https://upload.wikimedia.org/wikipedia/commons/3/36/Mississippi_St._Bulldogs_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/36/Mississippi_State_Bulldogs_logo.svg",
   "Florida Atlantic":
     "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/Florida_Atlantic_Owls_logo.svg/800px-Florida_Atlantic_Owls_logo.svg.png",
   "NC St.":
-    "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/NC_St._Wolfpack_logo.svg/1200px-NC_St._Wolfpack_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/NC_State_Wolfpack_logo.svg/1200px-NC_State_Wolfpack_logo.svg.png",
   Vermont:
     "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Vermont_Catamounts_logo.svg/1200px-Vermont_Catamounts_logo.svg.png",
   Akron:
     "https://upload.wikimedia.org/wikipedia/commons/4/41/Akron_Z_logo_2015.png",
   "South Dakota St.":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/South_Dakota_St._University_logo.svg/1917px-South_Dakota_St._University_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/South_Dakota_State_University_logo.svg/1917px-South_Dakota_State_University_logo.svg.png",
   Longwood:
     "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Longwood_University_seal.svg/1200px-Longwood_University_seal.svg.png",
   Purdue:
@@ -113,11 +113,11 @@ exports.LOGOS = {
   Samford:
     "https://upload.wikimedia.org/wikipedia/commons/a/ae/Samford_wordmark.png",
   "Colorado St.":
-    "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Colorado_St._Rams_logo.svg/1200px-Colorado_St._Rams_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Colorado_State_Rams_logo.svg/1200px-Colorado_State_Rams_logo.svg.png",
   Oregon:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oregon_Ducks_logo.svg/2510px-Oregon_Ducks_logo.svg.png",
   "Morehead St.":
-    "https://upload.wikimedia.org/wikipedia/commons/e/e8/Morehead_St._%22M%22.png",
+    "https://upload.wikimedia.org/wikipedia/commons/e/e8/Morehead_State_%22M%22.png",
   Yale: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Yale_Bulldogs_script.svg/1200px-Yale_Bulldogs_script.svg.png",
   "Montana St.":
     "https://upload.wikimedia.org/wikipedia/en/2/2f/Montana_St._Bobcats_logo.svg",
@@ -136,7 +136,7 @@ exports.LOGOS = {
   "Brigham Young":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/BYU_Cougars_logo.svg/2560px-BYU_Cougars_logo.svg.png",
   "San Diego St.":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_St._Aztecs_logo.svg/2560px-San_Diego_St._Aztecs_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_State_Aztecs_logo.svg/2560px-San_Diego_State_Aztecs_logo.svg.png",
   Gonzaga:
     "https://upload.wikimedia.org/wikipedia/en/b/bd/Gonzaga_Bulldogs_logo.svg",
   Northwestern:
@@ -144,7 +144,7 @@ exports.LOGOS = {
   "Texas A&M":
     "https://upload.wikimedia.org/wikipedia/commons/e/ee/Texas_A%26M_University_logo.svg",
   "Michigan St.":
-    "https://upload.wikimedia.org/wikipedia/en/a/a7/Michigan_St._Athletics_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/en/a/a7/Michigan_State_Athletics_logo.svg",
   Drake:
     "https://upload.wikimedia.org/wikipedia/en/f/fc/Drake_Bulldogs_logo.svg",
   "Grand Canyon":
@@ -161,8 +161,6 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Duquesne_Dukes_logo.svg/1200px-Duquesne_Dukes_logo.svg.png",
   Virginia:
     "https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Virginia_Cavaliers_sabre.svg/1280px-Virginia_Cavaliers_sabre.svg.png",
-  "Montana St.":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Montana_St._Bobcats_M_Logo.png/631px-Montana_St._Bobcats_M_Logo.png",
   Colorado:
     "https://upload.wikimedia.org/wikipedia/commons/d/d4/Colorado_Buffs_alternate_logo.png",
   Wagner:
