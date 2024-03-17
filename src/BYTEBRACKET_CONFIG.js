@@ -5,10 +5,10 @@ exports.AP_RANKINGS = new Map([
   ["Houston", 1],
   ["Connecticut", 2],
   ["Purdue", 3],
-  ["UNC", 4],
+  ["North Carolina", 4],
   ["Tennessee", 5],
   ["Arizona", 6],
-  ["Iowa State", 7],
+  ["Iowa St.", 7],
   ["Creighton", 8],
   ["Kentucky", 9],
   ["Marquette", 10],
@@ -19,11 +19,11 @@ exports.AP_RANKINGS = new Map([
   ["South Carolina", 15],
   ["Kansas", 16],
   ["Gonzaga", 17],
-  ["Utah State", 18],
+  ["Utah St.", 18],
   ["Alabama", 19],
   ["Brigham Young", 20],
   ["Saint Mary's (CA)", 21],
-  ["Washington State", 22],
+  ["Washington St.", 22],
   ["Nevada", 23],
   ["Dayton", 24],
   ["Texas Tech", 25],
@@ -43,9 +43,9 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/5/5d/Kentucky_Wildcats_logo_2015.png",
   Wisconsin:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Wisconsin_Badgers_logo.svg/2171px-Wisconsin_Badgers_logo.svg.png",
-  "Washington State":
+  "Washington St.":
     "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Washington_State_Cougars_logo.svg/1200px-Washington_State_Cougars_logo.svg.png",
-  "Utah State":
+  "Utah St.":
     "https://upload.wikimedia.org/wikipedia/commons/5/59/Utah_State_Aggies_logo.svg",
   Nebraska:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nebraska_Cornhuskers_logo.svg/2048px-Nebraska_Cornhuskers_logo.svg.png",
@@ -54,7 +54,7 @@ exports.LOGOS = {
   TCU: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/TCU_Horned_Frogs_logo.svg/2560px-TCU_Horned_Frogs_logo.svg.png",
   "James Madison":
     "https://content.sportslogos.net/logos/32/717/full/james_madison_dukes_logo_primary_20128040.png",
-  "McNeese State":
+  "McNeese St.":
     "https://upload.wikimedia.org/wikipedia/commons/3/31/McNeese_State_%22M%22_logo.png",
   UAB: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/UAB_Blazers_logo.svg/200px-UAB_Blazers_logo.svg.png",
   Colgate:
@@ -65,7 +65,7 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/en/1/17/Stetson_Hatters_logo_%282018%29.png",
   Connecticut:
     "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Connecticut_Huskies_logo.svg/1200px-Connecticut_Huskies_logo.svg.png",
-  "Iowa State":
+  "Iowa St.":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/2560px-Iowa_State_Cyclones_logo.svg.png",
   Auburn:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/2317px-Auburn_Tigers_logo.svg.png",
@@ -76,21 +76,19 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Saint_Mary%27s_College_Gaels_logo.svg/2560px-Saint_Mary%27s_College_Gaels_logo.svg.png",
   Nevada:
     "https://upload.wikimedia.org/wikipedia/commons/5/53/Nevada_Wolf_Pack_alternate_logo.png",
-  "Boise State":
+  "Boise St.":
     "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Primary_Boise_State_Broncos_Athletics_Logo.svg/1200px-Primary_Boise_State_Broncos_Athletics_Logo.svg.png",
-  "Mississippi State":
+  "Mississippi St.":
     "https://upload.wikimedia.org/wikipedia/commons/3/36/Mississippi_State_Bulldogs_logo.svg",
   "Florida Atlantic":
     "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/Florida_Atlantic_Owls_logo.svg/800px-Florida_Atlantic_Owls_logo.svg.png",
-  "NC State":
+  "NC St.":
     "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/NC_State_Wolfpack_logo.svg/1200px-NC_State_Wolfpack_logo.svg.png",
-  "Virginia Commonwealth":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/VCU_Rams_logo.svg/2560px-VCU_Rams_logo.svg.png",
   Vermont:
     "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Vermont_Catamounts_logo.svg/1200px-Vermont_Catamounts_logo.svg.png",
   Akron:
     "https://upload.wikimedia.org/wikipedia/commons/4/41/Akron_Z_logo_2015.png",
-  "South Dakota State":
+  "South Dakota St.":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/South_Dakota_State_University_logo.svg/1917px-South_Dakota_State_University_logo.svg.png",
   Longwood:
     "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Longwood_University_seal.svg/1200px-Longwood_University_seal.svg.png",
@@ -114,19 +112,19 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Dayton_Flyers_lockup_2line_red-blue.svg/1200px-Dayton_Flyers_lockup_2line_red-blue.svg.png",
   Samford:
     "https://upload.wikimedia.org/wikipedia/commons/a/ae/Samford_wordmark.png",
-  "Colorado State":
+  "Colorado St.":
     "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Colorado_State_Rams_logo.svg/1200px-Colorado_State_Rams_logo.svg.png",
   Oregon:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oregon_Ducks_logo.svg/2510px-Oregon_Ducks_logo.svg.png",
-  "Morehead State":
+  "Morehead St.":
     "https://upload.wikimedia.org/wikipedia/commons/e/e8/Morehead_State_%22M%22.png",
   Yale: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Yale_Bulldogs_script.svg/1200px-Yale_Bulldogs_script.svg.png",
-  "Montana State":
-    "https://upload.wikimedia.org/wikipedia/en/2/2f/Montana_State_Bobcats_logo.svg",
+  "Montana St.":
+    "https://upload.wikimedia.org/wikipedia/en/2/2f/Montana_St._Bobcats_logo.svg",
   "Saint Peter's":
     "https://upload.wikimedia.org/wikipedia/en/thumb/9/97/Saint_Peter%27s_Peacocks_logo.svg/1200px-Saint_Peter%27s_Peacocks_logo.svg.png",
   Grambling:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Grambling_State_Tigers_logo.svg/2560px-Grambling_State_Tigers_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Grambling_St._Tigers_logo.svg/2560px-Grambling_St._Tigers_logo.svg.png",
   "North Carolina":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/2560px-North_Carolina_Tar_Heels_logo.svg.png",
   Arizona:
@@ -135,8 +133,9 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Baylor_Athletics_logo.svg/640px-Baylor_Athletics_logo.svg.png",
   Alabama:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Alabama_Athletics_logo.svg/800px-Alabama_Athletics_logo.svg.png",
-  "Brigham Young": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/BYU_Cougars_logo.svg/2560px-BYU_Cougars_logo.svg.png",
-  "San Diego State":
+  "Brigham Young":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/BYU_Cougars_logo.svg/2560px-BYU_Cougars_logo.svg.png",
+  "San Diego St.":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_State_Aztecs_logo.svg/2560px-San_Diego_State_Aztecs_logo.svg.png",
   Gonzaga:
     "https://upload.wikimedia.org/wikipedia/en/b/bd/Gonzaga_Bulldogs_logo.svg",
@@ -144,20 +143,28 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Northwestern_Wildcats_logo.svg/1330px-Northwestern_Wildcats_logo.svg.png",
   "Texas A&M":
     "https://upload.wikimedia.org/wikipedia/commons/e/ee/Texas_A%26M_University_logo.svg",
-  "Michigan State":
+  "Michigan St.":
     "https://upload.wikimedia.org/wikipedia/en/a/a7/Michigan_State_Athletics_logo.svg",
   Drake:
     "https://upload.wikimedia.org/wikipedia/en/f/fc/Drake_Bulldogs_logo.svg",
   "Grand Canyon":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Grand_Canyon_Antelopes_logo.svg/2560px-Grand_Canyon_Antelopes_logo.svg.png",
-  "College of Charleston":
+  "Charleston":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/College_of_Charleston_Cougars_logo.svg/1760px-College_of_Charleston_Cougars_logo.svg.png",
   Oakland:
     "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Oakland_Golden_Grizzlies_logo.svg/1200px-Oakland_Golden_Grizzlies_logo.svg.png",
-  "Long Beach State":
+  "Long Beach St.":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Long-beach-st_logo_from_NCAA.svg/1677px-Long-beach-st_logo_from_NCAA.svg.png",
   Howard:
     "https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Howard_Bison_logo.svg/1200px-Howard_Bison_logo.svg.png",
+  Duquesne:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Duquesne_Dukes_logo.svg/1200px-Duquesne_Dukes_logo.svg.png",
+  Virginia:
+    "https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Virginia_Cavaliers_sabre.svg/1280px-Virginia_Cavaliers_sabre.svg.png",
+  Colorado:
+    "https://upload.wikimedia.org/wikipedia/commons/d/d4/Colorado_Buffs_alternate_logo.png",
+  Wagner:
+    "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Wagner_Seahawks_logo.svg/1200px-Wagner_Seahawks_logo.svg.png",
 };
 
 /**
@@ -167,79 +174,79 @@ exports.TEAMS = [
   /* South */
   "Houston",
   "Marquette",
-  "Illinois",
   "Kentucky",
+  "Duke",
   "Wisconsin",
-  "Washington State",
-  "Utah State",
+  "Texas Tech",
+  "Florida",
   "Nebraska",
-  "New Mexico",
-  "TCU/Colorado",
+  "Texas A&M",
+  "Boise St./Colorado",
+  "NC St.",
   "James Madison",
-  "McNeese State",
-  "UAB",
-  "Colgate",
+  "Vermont",
+  "Oakland",
   "Western Kentucky",
-  "Stetson",
+  "Longwood",
 
   /* East */
   "Connecticut",
-  "Iowa State",
+  "Iowa St.",
+  "Illinois",
   "Auburn",
-  "Duke",
-  "Florida",
-  "Saint Mary's (CA)",
-  "Nevada",
-  "Boise State",
-  "Mississippi State",
+  "San Diego St.",
+  "Brigham Young",
+  "Washington St.",
   "Florida Atlantic",
-  "NC State",
-  "Virginia Commonwealth",
-  "Vermont",
-  "Akron",
-  "South Dakota State",
-  "Longwood",
+  "Northwestern",
+  "Drake",
+  "Duquesne",
+  "UAB",
+  "Yale",
+  "Morehead St.",
+  "South Dakota St.",
+  "Stetson",
 
   /* Midwest */
   "Purdue",
   "Tennessee",
   "Creighton",
   "Kansas",
+  "Gonzaga",
   "South Carolina",
-  "Texas Tech",
-  "Clemson",
   "Texas",
-  "Dayton",
-  "Colorado State",
+  "Utah St.",
+  "TCU",
+  "Virginia/Colorado St.",
   "Oregon",
+  "McNeese St.",
   "Samford",
-  "Yale",
-  "Morehead State",
+  "Akron",
   "Saint Peter's",
-  "Grambling/Montana State",
+  "Grambling/Montana St.",
 
   /* West */
   "North Carolina",
   "Arizona",
   "Baylor",
   "Alabama",
-  "Brigham Young",
-  "San Diego State",
-  "Gonzaga",
-  "Northwestern",
-  "Texas A&M",
-  "Michigan State/Oklahoma",
-  "Drake",
+  "Saint Mary's (CA)",
+  "Clemson",
+  "Dayton",
+  "Mississippi St.",
+  "Michigan St.",
+  "Nevada",
+  "New Mexico",
   "Grand Canyon",
-  "College of Charleston",
-  "Oakland",
-  "Long Beach State",
+  "Charleston",
+  "Colgate",
+  "Long Beach St.",
   "Howard/Wagner",
 ];
 
 exports.FIRST_FOUR = [
-  ["TCU", "Colorado"],
-  ["Grambling", "Montana State"],
-  ["Michigan State", "Oklahoma"],
+  ["Boise St.", "Colorado"],
+  ["Grambling", "Montana St."],
+  ["Virginia", "Colorado St."],
   ["Howard", "Wagner"],
 ];
