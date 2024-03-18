@@ -149,7 +149,7 @@ exports.LOGOS = {
     "https://upload.wikimedia.org/wikipedia/en/f/fc/Drake_Bulldogs_logo.svg",
   "Grand Canyon":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Grand_Canyon_Antelopes_logo.svg/2560px-Grand_Canyon_Antelopes_logo.svg.png",
-  "Charleston":
+  Charleston:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/College_of_Charleston_Cougars_logo.svg/1760px-College_of_Charleston_Cougars_logo.svg.png",
   Oakland:
     "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Oakland_Golden_Grizzlies_logo.svg/1200px-Oakland_Golden_Grizzlies_logo.svg.png",
@@ -171,24 +171,6 @@ exports.LOGOS = {
  * Teams in the tournament. Every 16 indices represents a new region. Seeds are in order 1-16 for each region.
  */
 exports.TEAMS = [
-  /* South */
-  "Houston",
-  "Marquette",
-  "Kentucky",
-  "Duke",
-  "Wisconsin",
-  "Texas Tech",
-  "Florida",
-  "Nebraska",
-  "Texas A&M",
-  "Boise St./Colorado",
-  "NC St.",
-  "James Madison",
-  "Vermont",
-  "Oakland",
-  "Western Kentucky",
-  "Longwood",
-
   /* East */
   "Connecticut",
   "Iowa St.",
@@ -207,24 +189,6 @@ exports.TEAMS = [
   "South Dakota St.",
   "Stetson",
 
-  /* Midwest */
-  "Purdue",
-  "Tennessee",
-  "Creighton",
-  "Kansas",
-  "Gonzaga",
-  "South Carolina",
-  "Texas",
-  "Utah St.",
-  "TCU",
-  "Virginia/Colorado St.",
-  "Oregon",
-  "McNeese St.",
-  "Samford",
-  "Akron",
-  "Saint Peter's",
-  "Grambling/Montana St.",
-
   /* West */
   "North Carolina",
   "Arizona",
@@ -242,6 +206,42 @@ exports.TEAMS = [
   "Colgate",
   "Long Beach St.",
   "Howard/Wagner",
+
+  /* South */
+  "Houston",
+  "Marquette",
+  "Kentucky",
+  "Duke",
+  "Wisconsin",
+  "Texas Tech",
+  "Florida",
+  "Nebraska",
+  "Texas A&M",
+  "Boise St./Colorado",
+  "NC St.",
+  "James Madison",
+  "Vermont",
+  "Oakland",
+  "Western Kentucky",
+  "Longwood",
+
+  /* Midwest */
+  "Purdue",
+  "Tennessee",
+  "Creighton",
+  "Kansas",
+  "Gonzaga",
+  "South Carolina",
+  "Texas",
+  "Utah St.",
+  "TCU",
+  "Virginia/Colorado St.",
+  "Oregon",
+  "McNeese St.",
+  "Samford",
+  "Akron",
+  "Saint Peter's",
+  "Grambling/Montana St.",
 ];
 
 exports.FIRST_FOUR = [
