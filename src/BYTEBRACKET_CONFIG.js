@@ -124,7 +124,7 @@ exports.LOGOS = {
   "Saint Peter's":
     "https://upload.wikimedia.org/wikipedia/en/thumb/9/97/Saint_Peter%27s_Peacocks_logo.svg/1200px-Saint_Peter%27s_Peacocks_logo.svg.png",
   Grambling:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Grambling_St._Tigers_logo.svg/2560px-Grambling_St._Tigers_logo.svg.png",
+    "https://upload.wikimedia.org/wikipedia/commons/0/0d/Grambling_State_Tigers_logo.png",
   "North Carolina":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/2560px-North_Carolina_Tar_Heels_logo.svg.png",
   Arizona:
@@ -205,7 +205,7 @@ exports.TEAMS = [
   "Charleston",
   "Colgate",
   "Long Beach St.",
-  "Howard/Wagner",
+  "Wagner",
 
   /* South */
   "Houston",
@@ -217,7 +217,7 @@ exports.TEAMS = [
   "Florida",
   "Nebraska",
   "Texas A&M",
-  "Boise St./Colorado",
+  "Colorado",
   "NC St.",
   "James Madison",
   "Vermont",
@@ -235,18 +235,13 @@ exports.TEAMS = [
   "Texas",
   "Utah St.",
   "TCU",
-  "Virginia/Colorado St.",
+  "Colorado St.",
   "Oregon",
   "McNeese St.",
   "Samford",
   "Akron",
   "Saint Peter's",
-  "Grambling/Montana St.",
+  "Grambling",
 ];
 
-exports.FIRST_FOUR = [
-  ["Boise St.", "Colorado"],
-  ["Grambling", "Montana St."],
-  ["Virginia", "Colorado St."],
-  ["Howard", "Wagner"],
-];
+exports.FIRST_FOUR = [];
