@@ -53,11 +53,11 @@ exports.LOGOS = {
   "Baylor":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Baylor_Athletics_logo.svg/640px-Baylor_Athletics_logo.svg.png",
   "Vanderbilt":
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Vanderbilt_Commodores_logo.svg/1024px-Vanderbilt_Commodores_logo.svg.png",
+     "https://upload.wikimedia.org/wikipedia/commons/5/5a/Vanderbilt_University_logo_transparent.svg",
   "Virginia Commonwealth": 
       "https://upload.wikimedia.org/wikipedia/commons/d/d0/New_VCU_Wordmark_Logo.png",
   "Liberty":
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liberty_Athletics_logo.svg/1200px-Liberty_Athletics_logo.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/8/86/Liberty_LU_logo_new_2013.jpg",
   "Akron":
       "https://upload.wikimedia.org/wikipedia/commons/4/41/Akron_Z_logo_2015.png",
   "Montana": // TODO FIX
@@ -81,7 +81,7 @@ exports.LOGOS = {
   "Memphis":
       "https://upload.wikimedia.org/wikipedia/commons/1/18/Memphis_tigers_monogram_2013.png",
   "Missouri":
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Missouri_Tigers_logo.svg/1200px-Missouri_Tigers_logo.svg.png",
+      "https://logodix.com/logo/254673.png",
   "Kansas":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Kansas_Jayhawks_1946_logo.svg/1200px-Kansas_Jayhawks_1946_logo.svg.png",
   "Connecticut":
