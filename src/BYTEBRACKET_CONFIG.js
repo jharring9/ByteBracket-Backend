@@ -106,9 +106,9 @@ exports.LOGOS = {
   /* South Region */
   "Auburn":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/2317px-Auburn_Tigers_logo.svg.png",
-  "Michigan St.":
+  "Michigan State":
       "https://upload.wikimedia.org/wikipedia/en/a/a7/Michigan_State_Athletics_logo.svg",
-  "Iowa St.":
+  "Iowa State":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/2560px-Iowa_State_Cyclones_logo.svg.png",
   "Texas A&M":
       "https://upload.wikimedia.org/wikipedia/commons/e/ee/Texas_A%26M_University_logo.svg",
@@ -124,7 +124,7 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Creighton_Bluejays_logo.svg/1200px-Creighton_Bluejays_logo.svg.png",
   "New Mexico":
       "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/New_Mexico_Lobos_logo.svg/1200px-New_Mexico_Lobos_logo.svg.png",
-  "San Diego St.":
+  "San Diego State":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_State_Aztecs_logo.svg/2560px-San_Diego_State_Aztecs_logo.svg.png",
   "North Carolina":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/2560px-North_Carolina_Tar_Heels_logo.svg.png",
@@ -165,7 +165,7 @@ exports.LOGOS = {
   "Texas":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Texas_Longhorns_logo.svg/2560px-Texas_Longhorns_logo.svg.png",
   "Xavier":
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Xavier_Musketeers_logo.svg/1200px-Xavier_Musketeers_logo.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b1/Xavier_logo-primary-fc-gr.svg",
   "McNeese State":
       "https://upload.wikimedia.org/wikipedia/commons/3/31/McNeese_State_%22M%22_logo.png",
   "High Point": 
