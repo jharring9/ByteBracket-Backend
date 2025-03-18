@@ -54,16 +54,16 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Baylor_Athletics_logo.svg/640px-Baylor_Athletics_logo.svg.png",
   "Vanderbilt":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Vanderbilt_Commodores_logo.svg/1024px-Vanderbilt_Commodores_logo.svg.png",
-  "Virginia Commonwealth": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/VCU_Rams_logo.svg/1200px-VCU_Rams_logo.svg.png",
+  "Virginia Commonwealth": 
+      "https://upload.wikimedia.org/wikipedia/commons/d/d0/New_VCU_Wordmark_Logo.png",
   "Liberty":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liberty_Athletics_logo.svg/1200px-Liberty_Athletics_logo.svg.png",
   "Akron":
       "https://upload.wikimedia.org/wikipedia/commons/4/41/Akron_Z_logo_2015.png",
   "Montana": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Montana_Grizzlies_logo.svg/1200px-Montana_Grizzlies_logo.svg.png",
-  "Robert Morris": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Robert_Morris_Colonials_logo.svg/1200px-Robert_Morris_Colonials_logo.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/5/5d/Montana_UM_logo.gif",
+  "Robert Morris":
+      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Robert_Morris_University_logo.svg",
   "American":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/American_Eagles_logo.svg/1200px-American_Eagles_logo.svg.png",
   "Mount St. Mary's":
@@ -72,14 +72,14 @@ exports.LOGOS = {
   /* West Region */
   "Florida":
       "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Florida_Gators_gator_logo.svg/1200px-Florida_Gators_gator_logo.svg.png",
-  "St. John's (NY)": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/St._John%27s_Red_Storm_logo.svg/1200px-St._John%27s_Red_Storm_logo.svg.png",
+  "St. John's (NY)":
+      "https://upload.wikimedia.org/wikipedia/commons/d/d5/St-johns-ny_logo_from_NCAA.svg",
   "Texas Tech":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Texas_Tech_Athletics_logo.svg/800px-Texas_Tech_Athletics_logo.svg.png",
   "Maryland":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Maryland_Terrapins_logo.svg/1200px-Maryland_Terrapins_logo.svg.png",
-  "Memphis":// TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Memphis_Tigers_logo.svg/1200px-Memphis_Tigers_logo.svg.png",
+  "Memphis":
+      "https://upload.wikimedia.org/wikipedia/commons/1/18/Memphis_tigers_monogram_2013.png",
   "Missouri":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Missouri_Tigers_logo.svg/1200px-Missouri_Tigers_logo.svg.png",
   "Kansas":
@@ -88,20 +88,20 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Connecticut_Huskies_logo.svg/1200px-Connecticut_Huskies_logo.svg.png",
   "Oklahoma":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Oklahoma_Sooners_logo.svg/1124px-Oklahoma_Sooners_logo.svg.png",
-  "Arkansas": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Arkansas_Razorbacks_logo.svg/1200px-Arkansas_Razorbacks_logo.svg.png",
+  "Arkansas": 
+      "https://logos-world.net/wp-content/uploads/2020/06/Arkansas-Razorbacks-Logo-2001-2013.png",
   "Drake":
       "https://upload.wikimedia.org/wikipedia/en/f/fc/Drake_Bulldogs_logo.svg",
   "Colorado State":
       "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Colorado_State_Rams_logo.svg/1200px-Colorado_State_Rams_logo.svg.png",
   "Grand Canyon":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Grand_Canyon_Antelopes_logo.svg/2560px-Grand_Canyon_Antelopes_logo.svg.png",
-  "UNC Wilmington": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/UNC_Wilmington_Seahawks_logo.svg/1200px-UNC_Wilmington_Seahawks_logo.svg.png",
-  "Omaha": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Omaha_Mavericks_O_logo.svg/1200px-Omaha_Mavericks_O_logo.svg.png",
-  "Norfolk State": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Norfolk_State_Spartans_logo.svg/1200px-Norfolk_State_Spartans_logo.svg.png",
+  "UNC Wilmington":
+      "https://cdn.freelogovectors.net/wp-content/uploads/2020/12/unc_wilmington-seahawks-logo.png",
+  "Omaha": 
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Omaha_Mavericks_logo.svg",
+  "Norfolk State": 
+      "https://upload.wikimedia.org/wikipedia/commons/a/af/Norfolk_state_univ_wordmark_1999.png",
 
   /* South Region */
   "Auburn":
@@ -114,8 +114,8 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/commons/e/ee/Texas_A%26M_University_logo.svg",
   "Michigan":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Michigan_Wolverines_logo.svg/1200px-Michigan_Wolverines_logo.svg.png",
-  "Mississippi": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Mississippi_Rebels_logo.svg/1200px-Mississippi_Rebels_logo.svg.png",
+  "Mississippi": 
+      "https://upload.wikimedia.org/wikipedia/commons/b/bf/Ole_Miss_Rebels_logo.svg",
   "Marquette":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Marquette_Golden_Eagles_logo.svg/2560px-Marquette_Golden_Eagles_logo.svg.png",
   "Louisville":
@@ -128,14 +128,14 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/San_Diego_State_Aztecs_logo.svg/2560px-San_Diego_State_Aztecs_logo.svg.png",
   "North Carolina":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/2560px-North_Carolina_Tar_Heels_logo.svg.png",
-  "UC San Diego": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/UC_San_Diego_Tritons_logo.svg/1200px-UC_San_Diego_Tritons_logo.svg.png",
+  "UC San Diego": 
+      "https://upload.wikimedia.org/wikipedia/commons/3/36/UC_San_Diego_Tritons_wordmark.jpg",
   "Yale":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Yale_Bulldogs_script.svg/1200px-Yale_Bulldogs_script.svg.png",
-  "Lipscomb": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Lipscomb_Bisons_logo.svg/1200px-Lipscomb_Bisons_logo.svg.png",
-  "Bryant": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Bryant_Bulldogs_logo.svg/1200px-Bryant_Bulldogs_logo.svg.png",
+  "Lipscomb":
+      "https://upload.wikimedia.org/wikipedia/commons/6/6c/Lipscomb_athletics_logo_2012.png",
+  "Bryant": 
+      "https://upload.wikimedia.org/wikipedia/commons/f/f9/Bryant_athletics_second_logo_2004.png",
   "Alabama State":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Alabama_State_Hornets_logo.svg/1200px-Alabama_State_Hornets_logo.svg.png",
   "Saint Francis (PA)":
@@ -154,8 +154,8 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Clemson_Tigers_logo.svg/1200px-Clemson_Tigers_logo.svg.png",
   "Illinois":
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Illinois_Fighting_Illini_logo.svg/1420px-Illinois_Fighting_Illini_logo.svg.png",
-  "UCLA": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/UCLA_Bruins_script_logo.svg/1200px-UCLA_Bruins_script_logo.svg.png",
+  "UCLA":
+      "https://upload.wikimedia.org/wikipedia/commons/e/ef/UCLA_Bruins_logo.svg",
   "Gonzaga":
       "https://upload.wikimedia.org/wikipedia/en/b/bd/Gonzaga_Bulldogs_logo.svg",
   "Georgia":
@@ -168,14 +168,14 @@ exports.LOGOS = {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Xavier_Musketeers_logo.svg/1200px-Xavier_Musketeers_logo.svg.png",
   "McNeese State":
       "https://upload.wikimedia.org/wikipedia/commons/3/31/McNeese_State_%22M%22_logo.png",
-  "High Point": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/en/thumb/8/8c/High_Point_Panthers_logo.svg/1200px-High_Point_Panthers_logo.svg.png",
-  "Troy": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Troy_Trojans_logo.svg/1200px-Troy_Trojans_logo.svg.png",
-  "Wofford": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Wofford_Terriers_logo.svg/1200px-Wofford_Terriers_logo.svg.png",
-  "SIU Edwardsville": // TODO FIX
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/SIU_Edwardsville_Cougars_logo.svg/1200px-SIU_Edwardsville_Cougars_logo.svg.png"
+  "High Point": 
+      "https://upload.wikimedia.org/wikipedia/commons/2/2c/High_Point_Panthers_logo.svg",
+  "Troy": 
+      "https://upload.wikimedia.org/wikipedia/commons/b/ba/Troy_logo_from_NCAA.svg",
+  "Wofford": 
+      "https://upload.wikimedia.org/wikipedia/commons/3/3d/Wofford_Terriers_wordmark.svg",
+  "SIU Edwardsville":
+      "https://upload.wikimedia.org/wikipedia/commons/5/51/SIUE_Cougars_logo.svg"
 };
 
 /**
